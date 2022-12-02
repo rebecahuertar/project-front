@@ -1,0 +1,56 @@
+<header class="headerC p-3 mb-3 border-bottom">
+  <nav class="navbar navbar-expand-lg navbar-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">
+        <img src="./assets/images/logo.png" alt="" width="50" height="61" />
+      </a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <div *ngIf="showNoAuthSection">
+            <li class="nav-item">
+              <button class="menus" (click)="home()">Inicio</button>
+            </li>
+          </div>
+          <div *ngIf="showAuthSection">
+            <li class="nav-item">
+              <button class="menus" (click)="cuenta()">Mi cuenta</button>
+            </li>
+          </div>
+        </ul>
+        <form class="me-3 mb-2">
+          <input
+            class="form-control"
+            type="search"
+            (keydown.enter)="buscador()"
+            placeholder="Buscar..."
+            aria-label="Search"
+          />
+        </form>
+        <form class="mb-2">
+          <div *ngIf="showNoAuthSection">
+            <button class="btn btn-btv me-2" (click)="login()">Login</button>
+            <button class="btn btn-secondary" (click)="register()">
+              Crear Cuenta
+            </button>
+          </div>
+          <div *ngIf="showAuthSection">
+            <button class="btn btn-secondary" (click)="logout()">
+              Cerrar sesión
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </nav>
+</header>

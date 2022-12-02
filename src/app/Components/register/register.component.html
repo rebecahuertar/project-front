@@ -1,0 +1,45 @@
+<div class="container">
+  <main class="pt-3">
+    <div class="card card-reg m-5 p-5">
+      <div>Elige el tipo de usuario con el que quiere crear la cuenta:</div>
+      <div class="card-body">
+        <form
+          [formGroup]="registerForm"
+          (ngSubmit)="seleccionar()"
+          class="needs-validation"
+        >
+          <div class="row mb-2">
+            <div class="col-md-3">
+              <select
+                class="form-select"
+                id="tipoUsuario"
+                [formControl]="tipoUsuario"
+              >
+                <option value="comercio">COMERCIO</option>
+                <option value="cliente">CLIENTE</option>
+              </select>
+              <!-- Comprobar errores-->
+              <div
+                *ngIf="
+                  tipoUsuario.errors && isValidForm != null && !isValidForm
+                "
+                [ngClass]="'error'"
+              >
+                <div *ngIf="tipoUsuario.errors?.['required']">
+                  El tipo de usuario es requerido.
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row mt-3">
+            <div class="col-sm-4">
+              <button type="submit" class="btn btn-secondary">
+                Seleccionar
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+</div>

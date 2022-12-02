@@ -1,1 +1,131 @@
 /* You can add global styles to this file, and also import other style files */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family:  Verdana, Geneva, Tahoma, sans-serif;   
+    color:rgb(94, 93, 93);
+    line-height: 1.5;
+    height: 100vh;
+}
+
+/* comunes */
+.tituloC{
+    font-size: 1.5em;
+    font-weight: bold;
+}
+.textp{
+    font-size: 0.8em;
+}
+
+.rowsty{
+    background-color: #DFE8CC;
+    border: 1px solid rgb(222, 221, 221);
+}
+
+/* fondos colores personalizados */
+.headerC{
+    background-color:#F7EDDB;
+}
+
+.footerC{
+    background-color:#f4f3f2;
+}
+
+/*mensajes */
+
+
+
+
+/* botones personalizados*/
+.menus{   
+  background: none;
+  border: 0;
+  color: inherit;  
+  line-height: normal;
+  overflow: visible;
+  padding: 0;       
+}
+
+.btn.btn-btv { 
+    color: #FCFCFC; 
+    background-color: #61764B; 
+    border-color: #F7EDDB; 
+  } 
+   
+.btn.btn-btv:hover, 
+.btn.btn-btv:focus, 
+.btn.btn-btv:active, 
+.btn.btn-btv.active, 
+.open .dropdown-toggle.btn.btn-btv { 
+    color: #FCFCFC; 
+    background-color: #9BA17B; 
+    border-color: #F7EDDB; 
+} 
+
+.btn.btn-btv:active, 
+.btn.btn-btv.active, 
+.open .dropdown-toggle.btn.btn-btv { 
+  background-image: none; 
+}  
+
+.btn.btn-btv .badge { 
+    color: #61764B; 
+  background-color: #FCFCFC; 
+}
+
+/* carusel personalizado*/
+.carousel-inner{
+    height: 400px;
+}
+
+/* login*/
+.form-signin {
+    width: 100%;
+    max-width: 330px;
+    padding: 15px;
+    margin: auto;
+}
+
+.form-signin .checkbox {
+    font-weight: 400;
+}
+
+.form-signin .form-floating:focus-within {
+    z-index: 2;
+}
+
+.form-signin input[type="email"] {
+    margin-bottom: -1px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.form-signin input[type="password"] {
+    margin-bottom: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+/* card personalizado*/
+.card-header.cardhfvr{
+    background-color: #DFE8CC;
+}
+
+.card-footer.cardffvr{
+    background-color: #F7EDDB;
+}
+
+.card-reg{
+    background-color: #fbf9f5;
+}
+
+/* validacion formularios */
+.error{
+   color:rgb(250, 61, 61);
+   font-size: 0.8em;
+    
+}

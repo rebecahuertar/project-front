@@ -1,0 +1,60 @@
+<main class="form-signin">
+  <div style="margin-left: auto; margin-right: auto">
+    <p id="loginFeedback"></p>
+  </div>
+  <form [formGroup]="loginForm" (ngSubmit)="login()">
+    <h1 class="h3 mb-3 fw-normal text-center">Iniciar Sesión</h1>
+    <div class="form-floating">
+      <input
+        type="email"
+        class="form-control"
+        [formControl]="email"
+        id="floatingInput"
+        placeholder="name@example.com"
+      />
+      <label for="floatingInput">Email</label>
+    </div>
+    <div class="form-floating">
+      <input
+        type="password"
+        class="form-control"
+        [formControl]="password"
+        id="floatingPassword"
+        placeholder="Password"
+      />
+      <label for="floatingPassword">Password</label>
+    </div>
+    <div class="mt-2 mb-3 textp">
+      <a class="nav-link" href="#">¿Se te olvidó tu contraseña?</a>
+    </div>
+    <div class="text-center">
+      <button type="submit" class="btn btn-btv me-2">Login</button>
+    </div>
+  </form>
+  <div *ngIf="email.errors">
+    <span
+      style="color: red"
+      *ngIf="email.errors && (email.touched || email.dirty)"
+    >
+      <span *ngIf="email.errors?.['required']">Email es necesario</span>
+      <div *ngIf="email.errors?.['pattern']">
+        Email no tiene un formato válido.
+      </div>
+    </span>
+  </div>
+
+  <div *ngIf="password.errors">
+    <span
+      style="color: red"
+      *ngIf="password.errors && (password.touched || password.dirty)"
+    >
+      <span *ngIf="password.errors?.['required']">Password es necesario</span>
+      <span *ngIf="password.errors?.['minlength']"
+        >Password debe tener más de 8 caracteres</span
+      >
+      <span *ngIf="password.errors?.['maxlength']"
+        >Password puede tener un máximo de 16 caracteres</span
+      >
+    </span>
+  </div>
+</main>
