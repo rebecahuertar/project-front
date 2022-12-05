@@ -1,0 +1,16 @@
+<div class="container mt-5">
+  <div class="row rowsty mb-2">
+    <div class="col-8">
+      <span class="me-1">MENSAJES DE COMERCIOS FAVORITOS</span>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-8 mt-3">
+      <p class="mb-2 mb-3 border-bottom" *ngFor="let favorito of favoritos">
+        <a class="nav-link" href="#"
+          ><strong>{{ favorito.nombreComercio }}</strong></a
+        >
+      </p>
+    </div>
+  </div>
+</div>

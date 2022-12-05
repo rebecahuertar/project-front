@@ -107,7 +107,7 @@
         </div>
       </div>
       <div class="row mb-2">
-        <div class="col-sm-6">
+        <div class="col-sm-5">
           <label for="nombreComercio" class="form-label"
             >Nombre del Comercio</label
           >
@@ -135,16 +135,17 @@
         </div>
       </div>
       <div class="row mb-2">
-        <div class="col-sm-6">
+        <div class="col-sm-8">
           <label for="descripcion" class="form-label"
             >Descripción del Comercio</label
           >
-          <input
-            type="text"
+          <textarea
+            rows="3"
             class="form-control"
             id="descripcion"
             [formControl]="descripcion"
-          />
+          >
+          </textarea>
           <!-- Comprobar errores-->
           <div
             *ngIf="descripcion.errors && isValidForm != null && !isValidForm"
@@ -157,7 +158,7 @@
               La descripción del comercio deben tener al menos 5 caracteres.
             </div>
             <div *ngIf="descripcion.errors?.['maxlength']">
-              La descripción del comercio puede tener un máximo de 30
+              La descripción del comercio puede tener un máximo de 50
               caracteres.
             </div>
           </div>

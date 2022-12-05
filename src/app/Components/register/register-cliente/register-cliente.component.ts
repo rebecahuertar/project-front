@@ -12,12 +12,11 @@ import { finalize } from 'rxjs';
 import { ClienteDTO } from 'src/app/Models/cliente.dto';
 import { MunicipioDTO } from 'src/app/Models/municipio.dto';
 import { ProvinciaDTO } from 'src/app/Models/provincia.dto';
+import { ClienteService } from 'src/app/Services/cliente.service';
 import { HeaderMenusService } from 'src/app/Services/header-menus.service';
 import { MunicipioService } from 'src/app/Services/municipio.service';
 import { ProvinciaService } from 'src/app/Services/provincia.service';
 import { SharedService } from 'src/app/Services/shared.service';
-
-import { ClienteService } from 'src/app/Services/cliente.service';
 
 @Component({
   selector: 'app-register',
@@ -62,6 +61,8 @@ export class RegisterClienteComponent implements OnInit {
       '',
       '',
       '',
+      '',
+      '',
       ''
     );
 
@@ -69,7 +70,7 @@ export class RegisterClienteComponent implements OnInit {
 
     this.nombre = new FormControl(this.registerCliente.nombre, [
       Validators.required,
-      Validators.minLength(5),
+      Validators.minLength(3),
       Validators.maxLength(15),
     ]);
 
@@ -119,28 +120,28 @@ export class RegisterClienteComponent implements OnInit {
 
   private loadProvincias(): void {
     let errorResponse: any;
-    this.provinciaService.getProvincias().subscribe(
-      (provincias: ProvinciaDTO[]) => {
+    this.provinciaService.getProvincias().subscribe({
+      next: (provincias: ProvinciaDTO[]) => {
         this.provincias = provincias;
       },
-      (error: HttpErrorResponse) => {
+      error: (error: HttpErrorResponse) => {
         errorResponse = error.error;
         this.sharedService.errorLog(errorResponse);
-      }
-    );
+      },
+    });
   }
 
   private loadMunicipios(idProvincia: string): void {
     let errorResponse: any;
-    this.municipioService.getMunicipios(idProvincia).subscribe(
-      (municipios: MunicipioDTO[]) => {
+    this.municipioService.getMunicipios(idProvincia).subscribe({
+      next: (municipios: MunicipioDTO[]) => {
         this.municipios = municipios;
       },
-      (error: HttpErrorResponse) => {
+      error: (error: HttpErrorResponse) => {
         errorResponse = error.error;
         this.sharedService.errorLog(errorResponse);
-      }
-    );
+      },
+    });
   }
 
   register(): void {
@@ -161,7 +162,9 @@ export class RegisterClienteComponent implements OnInit {
       email: this.email.value,
       password: this.password.value,
       idMunicipio: this.municipio.value,
+      municipio: '',
       idProvincia: this.provincia.value,
+      provincia: '',
       codigopostal: this.codigopostal.value,
     };
 

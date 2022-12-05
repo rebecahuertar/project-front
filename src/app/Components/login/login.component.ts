@@ -73,23 +73,30 @@ export class LoginComponent implements OnInit {
           );
 
           if (responseOK) {
-            const headerInfo: HeaderMenus = {
-              showAuthSection: true,
-              showNoAuthSection: false,
-            };
-            this.headerMenusService.headerManagement.next(headerInfo);
             //tenemos que ver si el login es de un comercio va a la vista del comercio
             //si el login es de un cliente va a la vista del cliente.
             if (this.loginUser.tipo_usuario == 'comercio') {
+              const headerInfo: HeaderMenus = {
+                showNoAuthSection: false,
+                showAuthSectionCliente: false,
+                showAuthSectionComercio: true,
+              };
+              this.headerMenusService.headerManagement.next(headerInfo);
               this.router.navigateByUrl('comercio-cuenta');
             } else {
+              const headerInfo: HeaderMenus = {
+                showNoAuthSection: false,
+                showAuthSectionCliente: true,
+                showAuthSectionComercio: false,
+              };
+              this.headerMenusService.headerManagement.next(headerInfo);
               this.router.navigateByUrl('cliente-cuenta');
             }
           }
         })
       )
-      .subscribe(
-        (resp: AuthToken) => {
+      .subscribe({
+        next: (resp: AuthToken) => {
           responseOK = true;
           this.loginUser.user_id = resp.user_id;
           this.loginUser.tipo_usuario = resp.tipo_usuario;
@@ -105,17 +112,18 @@ export class LoginComponent implements OnInit {
             this.loginUser.access_token
           );
         },
-        (error: HttpErrorResponse) => {
+        error: (error: HttpErrorResponse) => {
           responseOK = false;
           errorResponse = error.error;
           const headerInfo: HeaderMenus = {
-            showAuthSection: false,
             showNoAuthSection: true,
+            showAuthSectionCliente: false,
+            showAuthSectionComercio: false,
           };
           this.headerMenusService.headerManagement.next(headerInfo);
 
           //this.sharedService.errorLog(error.error);
-        }
-      );
+        },
+      });
   }
 }

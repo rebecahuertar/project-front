@@ -1,0 +1,173 @@
+<div class="container mt-5">
+  <div style="margin-left: auto; margin-right: auto">
+    <p id="clienteFeedback"></p>
+  </div>
+  <form
+    *ngIf="clienteForm"
+    [formGroup]="clienteForm"
+    (ngSubmit)="guardarCliente()"
+  >
+    <div class="row rowsty mb-2">
+      <div class="col-8">
+        <span class="me-2">DATOS DE ACCESO</span>
+        <span><i class="bi bi-pencil-fill"></i></span>
+      </div>
+    </div>
+    <div class="mb-3 row">
+      <label for="email" class="col-sm-2 col-form-label">Email:</label>
+      <div class="col-sm-4">
+        <input type="email" class="form-control" [formControl]="email" />
+      </div>
+      <!-- Comprobar errores-->
+      <div
+        *ngIf="email.errors && isValidForm != null && !isValidForm"
+        [ngClass]="'error'"
+      >
+        <div *ngIf="email.errors?.['required']">Email es requerido.</div>
+        <div *ngIf="email.errors?.['pattern']">
+          Email no tiene un formato válido.
+        </div>
+      </div>
+    </div>
+    <div class="mb-3 row">
+      <label for="password" class="col-sm-2 col-form-label">Password:</label>
+      <div class="col-sm-4">
+        <input type="password" class="form-control" [formControl]="password" />
+      </div>
+      <!-- Comprobar errores-->
+      <div
+        *ngIf="password.errors && isValidForm != null && !isValidForm"
+        [ngClass]="'error'"
+      >
+        <div *ngIf="password.errors?.['required']">Password es requerido.</div>
+        <div *ngIf="password.errors?.['minlength']">
+          La contraseña debe tener al menos 8 caracteres.
+        </div>
+        <div *ngIf="password.errors?.['maxlength']">
+          La contraseña puede tener un máximo de 12 caracteres.
+        </div>
+      </div>
+    </div>
+
+    <div class="row rowsty mb-2">
+      <div class="col-8">
+        <span class="me-2">DATOS PERSONALES</span>
+        <span><i class="bi bi-pencil-fill"></i></span>
+      </div>
+    </div>
+    <div class="mb-3 row">
+      <label for="nombre" class="col-sm-2 col-form-label">Nombre:</label>
+      <div class="col-sm-4">
+        <input type="text" class="form-control" [formControl]="nombre" />
+      </div>
+      <!-- Comprobar errores-->
+      <div
+        *ngIf="nombre.errors && isValidForm != null && !isValidForm"
+        [ngClass]="'error'"
+      >
+        <div *ngIf="nombre.errors?.['required']">El Nombre es requerido.</div>
+        <div *ngIf="nombre.errors?.['minlength']">
+          El nombre debe tener al menos 3 caracteres.
+        </div>
+        <div *ngIf="nombre.errors?.['maxlength']">
+          El nombre puede tener un máximo de 15 caracteres.
+        </div>
+      </div>
+    </div>
+    <div class="mb-3 row">
+      <label for="apellidos" class="col-sm-2 col-form-label">Apellidos:</label>
+      <div class="col-sm-4">
+        <input type="text" class="form-control" [formControl]="apellidos" />
+      </div>
+      <!-- Comprobar errores-->
+      <div
+        *ngIf="apellidos.errors && isValidForm != null && !isValidForm"
+        [ngClass]="'error'"
+      >
+        <div *ngIf="apellidos.errors?.['required']">
+          Los Apellidos son requeridos.
+        </div>
+        <div *ngIf="apellidos.errors?.['minlength']">
+          Los Apellidos deben tener al menos 5 caracteres.
+        </div>
+        <div *ngIf="apellidos.errors?.['maxlength']">
+          Los Apellidos puede tener un máximo de 25 caracteres.
+        </div>
+      </div>
+    </div>
+    <div class="mb-3 row">
+      <label for="provincia" class="col-sm-2 col-form-label">Provincia:</label>
+      <div class="col-sm-6">
+        <select class="form-select" id="provincia" [formControl]="provincia">
+          <option
+            *ngFor="let provincia of provincias"
+            value="{{ provincia.id }}"
+            [selected]="provincia"
+          >
+            {{ provincia.provincia }}
+          </option>
+        </select>
+      </div>
+      <!-- Comprobar errores-->
+      <div
+        *ngIf="provincia.errors && isValidForm != null && !isValidForm"
+        [ngClass]="'error'"
+      >
+        <div *ngIf="provincia.errors?.['required']">
+          La provincia es requerida.
+        </div>
+      </div>
+    </div>
+    <div class="mb-3 row">
+      <label for="municipio" class="col-sm-2 col-form-label">Municipio:</label>
+      <div class="col-sm-6">
+        <select class="form-select" id="municipio" [formControl]="municipio">
+          <option
+            *ngFor="let municipio of municipios"
+            value="{{ municipio.id }}"
+            [selected]="municipio"
+          >
+            {{ municipio.municipio }}
+          </option>
+        </select>
+      </div>
+      <!-- Comprobar errores-->
+      <div
+        *ngIf="municipio.errors && isValidForm != null && !isValidForm"
+        [ngClass]="'error'"
+      >
+        <div *ngIf="municipio.errors?.['required']">
+          El municipio es requerido.
+        </div>
+      </div>
+    </div>
+    <div class="mb-3 row">
+      <label for="codigopostal" class="col-sm-2 col-form-label"
+        >Código Postal:</label
+      >
+      <div class="col-sm-2">
+        <input type="text" class="form-control" [formControl]="codigopostal" />
+      </div>
+      <!-- Comprobar errores-->
+      <div
+        *ngIf="codigopostal.errors && isValidForm != null && !isValidForm"
+        [ngClass]="'error'"
+      >
+        <div *ngIf="codigopostal.errors?.['required']">
+          El código postal es requerido.
+        </div>
+        <div *ngIf="codigopostal.errors?.['minlength']">
+          El código postal deben tener al menos 5 caracteres.
+        </div>
+        <div *ngIf="codigopostal.errors?.['maxlength']">
+          El código postal puede tener un máximo de 6 caracteres.
+        </div>
+      </div>
+    </div>
+    <div class="row justify-content-end">
+      <div class="col-2">
+        <button type="submit" class="btn btn-info">GUARDAR</button>
+      </div>
+    </div>
+  </form>
+</div>

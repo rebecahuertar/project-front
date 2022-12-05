@@ -16,18 +16,54 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <div *ngIf="showNoAuthSection">
-            <li class="nav-item">
-              <button class="menus" (click)="home()">Inicio</button>
-            </li>
-          </div>
-          <div *ngIf="showAuthSection">
-            <li class="nav-item">
-              <button class="menus" (click)="cuenta()">Mi cuenta</button>
-            </li>
-          </div>
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0" *ngIf="showNoAuthSection">
+          <li class="nav-item">
+            <button class="menus" (click)="home()">Inicio</button>
+          </li>
         </ul>
+
+        <ul
+          class="navbar-nav me-auto mb-2 mb-lg-0"
+          *ngIf="showAuthSectionComercio"
+        >
+          <li class="nav-item pe-3">
+            <button class="menus" (click)="home()">Inicio</button>
+          </li>
+          <li class="nav-item pe-3">
+            <button class="menus" (click)="cuenta()">Mi cuenta</button>
+          </li>
+          <li class="nav-item pe-3">
+            <button class="menus" (click)="horarios()">Horarios</button>
+          </li>
+          <li class="nav-item pe-3">
+            <button class="menus" (click)="aperturas()">Aperturas</button>
+          </li>
+          <li class="nav-item pe-3">
+            <button class="menus" (click)="productos()">Productos</button>
+          </li>
+          <li class="nav-item pe-3">
+            <button class="menus" (click)="mensajescomercio()">Mensajes</button>
+          </li>
+        </ul>
+
+        <ul
+          class="navbar-nav me-auto mb-2 mb-lg-0"
+          *ngIf="showAuthSectionCliente"
+        >
+          <li class="nav-item pe-3">
+            <button class="menus" (click)="home()">Inicio</button>
+          </li>
+          <li class="nav-item pe-3">
+            <button class="menus" (click)="cuenta()">Mi cuenta</button>
+          </li>
+          <li class="nav-item pe-3">
+            <button class="menus" (click)="favoritos()">Favoritos</button>
+          </li>
+          <li class="nav-item">
+            <button class="menus" (click)="mensajescliente()">Mensajes</button>
+          </li>
+        </ul>
+
         <form class="me-3 mb-2">
           <input
             class="form-control"
@@ -37,18 +73,21 @@
             aria-label="Search"
           />
         </form>
-        <form class="mb-2">
-          <div *ngIf="showNoAuthSection">
-            <button class="btn btn-btv me-2" (click)="login()">Login</button>
-            <button class="btn btn-secondary" (click)="register()">
-              Crear Cuenta
-            </button>
-          </div>
-          <div *ngIf="showAuthSection">
-            <button class="btn btn-secondary" (click)="logout()">
-              Cerrar sesión
-            </button>
-          </div>
+        <form class="mb-2" *ngIf="showNoAuthSection">
+          <button class="btn btn-btv me-2" (click)="login()">Login</button>
+          <button class="btn btn-secondary" (click)="register()">
+            Crear Cuenta
+          </button>
+        </form>
+        <form class="mb-2" *ngIf="showAuthSectionCliente">
+          <button class="btn btn-secondary" (click)="logout()">
+            Cerrar sesión
+          </button>
+        </form>
+        <form class="mb-2" *ngIf="showAuthSectionComercio">
+          <button class="btn btn-secondary" (click)="logout()">
+            Cerrar sesión
+          </button>
         </form>
       </div>
     </div>

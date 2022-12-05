@@ -3,8 +3,16 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { ClienteDTO } from '../Models/cliente.dto';
+import { FavoritoDTO } from '../Models/favorito.dto';
 import { SharedService } from './shared.service';
 
+export interface updateResponse {
+  affected: number;
+}
+
+export interface deleteResponse {
+  affected: number;
+}
 @Injectable({
   providedIn: 'root',
 })
@@ -29,9 +37,29 @@ export class ClienteService {
       .pipe(catchError(this.sharedService.handleError));
   }
 
-  updateUser(userId: string, user: ClienteDTO): Observable<ClienteDTO> {
+  getClienteFavoritos(clienteId: string): Observable<FavoritoDTO[]> {
     return this.http
-      .put<ClienteDTO>(this.urlApi + '/' + userId, user)
+      .get<FavoritoDTO[]>(this.urlApi + '/favoritos/' + clienteId)
+      .pipe(catchError(this.sharedService.handleError));
+  }
+
+  updateCliente(
+    idCliente: string,
+    cliente: ClienteDTO
+  ): Observable<ClienteDTO> {
+    return this.http
+      .put<ClienteDTO>(this.urlApi + '/' + idCliente, cliente)
+      .pipe(catchError(this.sharedService.handleError));
+  }
+
+  deleteFavorito(
+    idCliente: string,
+    idComercio: string
+  ): Observable<deleteResponse> {
+    return this.http
+      .delete<deleteResponse>(
+        this.urlApi + '/favorito/' + idCliente + '/' + idComercio
+      )
       .pipe(catchError(this.sharedService.handleError));
   }
 }

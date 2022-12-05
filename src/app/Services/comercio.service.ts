@@ -22,4 +22,10 @@ export class ComercioService {
       .post<ComercioDTO>(this.urlApi, comercio)
       .pipe(catchError(this.sharedService.handleError));
   }
+
+  getComercioById(comercioId: string): Observable<ComercioDTO> {
+    return this.http
+      .get<ComercioDTO>(this.urlApi + '/' + comercioId)
+      .pipe(catchError(this.sharedService.handleError));
+  }
 }

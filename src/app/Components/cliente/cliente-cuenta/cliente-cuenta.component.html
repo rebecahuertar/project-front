@@ -1,5 +1,4 @@
-<div class="container">
-  <h3 class="mb-3">Nombre cliente</h3>
+<div class="container mt-5">
   <div class="row rowsty mb-2">
     <div class="col-8">
       <span class="me-2">DATOS DE ACCESO</span>
@@ -8,8 +7,8 @@
   </div>
   <div class="row">
     <div class="col-8">
-      <p>Email: prueba@prueba.com</p>
-      <p>Password: *************</p>
+      <p class="mt-2"><strong>Email:</strong> {{ cliente.email }}</p>
+      <p class="mb-4"><strong>Password:</strong> *************</p>
     </div>
   </div>
   <div class="row rowsty mb-2">
@@ -20,26 +19,24 @@
   </div>
   <div class="row">
     <div class="col-8">
-      <p class="mb-0">Nombre, Apellidos</p>
-      <p>Municipio Provincia Código postal</p>
+      <p class="mt-2"><strong>Nombre:</strong> {{ cliente.nombre }}</p>
+      <p class="mt-2"><strong>Apellidos:</strong> {{ cliente.apellidos }}</p>
+      <p class="mt-2"><strong>Municipio:</strong> {{ cliente.municipio }}</p>
+      <p class="mb-3"><strong>Provincia: </strong>{{ cliente.provincia }}</p>
+      <p class="mb-4">
+        <strong>Código postal:</strong> {{ cliente.codigopostal }}
+      </p>
     </div>
   </div>
-  <div class="row rowsty mb-2">
-    <div class="col-8">
-      <span class="me-1">COMERCIOS FAVORITOS</span>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-8">
-      <p class="mb-1">
-        <a class="nav-link" href="#"><strong>Nombre comercio 1</strong></a>
-      </p>
-      <p class="mb-1">
-        <a class="nav-link" href="#"><strong>Nombre comercio 2</strong></a>
-      </p>
-      <p class="mb-1">
-        <a class="nav-link" href="#"><strong>Nombre comercio 3</strong></a>
-      </p>
+  <div class="row justify-content-end">
+    <div class="col-2">
+      <button
+        (click)="updateCliente(cliente.idCliente)"
+        type="button"
+        class="btn btn-info"
+      >
+        Editar
+      </button>
     </div>
   </div>
 </div>

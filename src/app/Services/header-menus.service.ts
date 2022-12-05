@@ -8,7 +8,8 @@ import { HeaderMenus } from '../Models/header-menus.dto';
 export class HeaderMenusService {
   headerManagement: BehaviorSubject<HeaderMenus> =
     new BehaviorSubject<HeaderMenus>({
-      showAuthSection: false,
       showNoAuthSection: true,
+      showAuthSectionCliente: false,
+      showAuthSectionComercio: false,
     });
 }

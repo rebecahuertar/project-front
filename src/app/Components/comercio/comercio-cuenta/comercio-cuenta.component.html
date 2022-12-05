@@ -1,5 +1,5 @@
 <div class="container">
-  <h3 class="mb-3">Nombre comercio</h3>
+  <h3 class="mb-3">{{ comercio.nombreComercio }}</h3>
   <div class="row rowsty mb-2">
     <div class="col-8">
       <span class="me-2">DATOS DE ACCESO</span>
@@ -8,8 +8,8 @@
   </div>
   <div class="row">
     <div class="col-8">
-      <p>Email: prueba@prueba.com</p>
-      <p>Password: *************</p>
+      <p class="mt-2"><strong> Email:</strong> {{ comercio.email }}</p>
+      <p class="mb-4"><strong>Password:</strong> *************</p>
     </div>
   </div>
   <div class="row rowsty mb-2">
@@ -29,12 +29,25 @@
       />
     </div>
     <div class="col-6">
-      <p class="mb-0">Nombre, Apellidos</p>
-      <p class="mb-0">Nombre comercio</p>
-      <p class="mb-0">Categoría</p>
-      <p class="mb-0">Descripción</p>
-      <p class="mb-0"><span>Web</span> -<span>Teléfono</span></p>
-      <p>Municipio Provincia Código postal</p>
+      <p class="mb-1">
+        <strong>Nombre comercio:</strong> {{ comercio.nombreComercio }}
+      </p>
+      <p class="mb-1">
+        <strong>Descripción:</strong> {{ comercio.descripcion }}
+      </p>
+      <p class="mb-1"><strong>Categoría:</strong> Categoría</p>
+      <p class="mb-1">
+        <strong>Encargado:</strong> {{ comercio.nombre }}
+        {{ comercio.apellidos }}
+      </p>
+      <p class="mb-1"><strong>Dirección:</strong> {{ comercio.direccion }}</p>
+      <p class="mb-1"><strong>Municipio:</strong> {{ comercio.idMunicipio }}</p>
+      <p class="mb-1"><strong>Provincia:</strong> {{ comercio.idProvincia }}</p>
+      <p class="mb-1">
+        <strong>Código postal:</strong> {{ comercio.codigopostal }}
+      </p>
+      <p class="mb-1"><strong>Web:</strong> {{ comercio.web }}</p>
+      <p class="mb-4"><strong>Teléfono:</strong> {{ comercio.telefono }}</p>
     </div>
     <div class="col-3">
       <img
@@ -44,55 +57,6 @@
         width="120"
         height="120"
       />
-    </div>
-  </div>
-  <div class="row rowsty mb-2">
-    <div class="col-8">
-      <span class="me-2">HORARIOS</span>
-      <span><i class="bi bi-pencil-fill"></i></span>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-8">
-      <p class="mb-0">Lunes a Viernes de 9:00 a 16:00</p>
-      <p>Sábados y Domingos de 10:00 a 14:00</p>
-    </div>
-  </div>
-  <div class="row rowsty mb-2">
-    <div class="col-8">
-      <span class="me-2">DÍAS DE APERTURA</span>
-      <span><i class="bi bi-pencil-fill"></i></span>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-8">
-      <p class="mb-0">Domingo, 11 de Diciembre</p>
-      <p>Domingo, 18 de Diciembre</p>
-    </div>
-  </div>
-  <div class="row rowsty mb-2">
-    <div class="col-8">
-      <span class="me-2">PRODUCTOS</span>
-      <span><i class="bi bi-pencil-fill"></i></span>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-8">
-      <p>Producto1, Producto2 y Producto3</p>
-    </div>
-  </div>
-  <div class="row rowsty mb-2">
-    <div class="col-8">
-      <span class="me-2">MENSAJES</span>
-      <span><i class="bi bi-pencil-fill"></i></span>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-8">
-      <p class="mb-0">
-        Mensaje1 enviado por el comercio para que lo vea el cliente.
-      </p>
-      <p>Mensaje2 enviado por el comercio para que lo vea el cliente.</p>
     </div>
   </div>
 </div>

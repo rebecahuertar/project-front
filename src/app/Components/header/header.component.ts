@@ -10,7 +10,8 @@ import { LocalStorageService } from 'src/app/Services/local-storage.service';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
-  showAuthSection: boolean;
+  showAuthSectionCliente: boolean;
+  showAuthSectionComercio: boolean;
   showNoAuthSection: boolean;
 
   constructor(
@@ -18,16 +19,18 @@ export class HeaderComponent implements OnInit {
     private headerMenusService: HeaderMenusService,
     private localStorageService: LocalStorageService
   ) {
-    this.showAuthSection = false;
     this.showNoAuthSection = true;
+    this.showAuthSectionCliente = false;
+    this.showAuthSectionComercio = false;
   }
 
   ngOnInit(): void {
     this.headerMenusService.headerManagement.subscribe(
       (headerInfo: HeaderMenus) => {
         if (headerInfo) {
-          this.showAuthSection = headerInfo.showAuthSection;
           this.showNoAuthSection = headerInfo.showNoAuthSection;
+          this.showAuthSectionCliente = headerInfo.showAuthSectionCliente;
+          this.showAuthSectionComercio = headerInfo.showAuthSectionComercio;
         }
       }
     );
@@ -58,14 +61,39 @@ export class HeaderComponent implements OnInit {
     }
   }
 
+  favoritos(): void {
+    this.router.navigateByUrl('favoritos');
+  }
+
+  mensajescliente(): void {
+    this.router.navigateByUrl('mensajescliente');
+  }
+
+  horarios(): void {
+    this.router.navigateByUrl('horarios');
+  }
+
+  aperturas(): void {
+    this.router.navigateByUrl('aperturas');
+  }
+
+  productos(): void {
+    this.router.navigateByUrl('productos');
+  }
+
+  mensajescomercio(): void {
+    this.router.navigateByUrl('mensajescomercio');
+  }
+
   logout(): void {
     this.localStorageService.remove('user_id');
     this.localStorageService.remove('tipo_usuario');
     this.localStorageService.remove('access_token');
 
     const headerInfo: HeaderMenus = {
-      showAuthSection: false,
       showNoAuthSection: true,
+      showAuthSectionCliente: false,
+      showAuthSectionComercio: false,
     };
 
     this.headerMenusService.headerManagement.next(headerInfo);

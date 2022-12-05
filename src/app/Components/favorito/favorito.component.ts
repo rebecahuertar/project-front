@@ -1,20 +1,23 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ClienteDTO } from 'src/app/Models/cliente.dto';
+import { FavoritoDTO } from 'src/app/Models/favorito.dto';
 import { HeaderMenus } from 'src/app/Models/header-menus.dto';
-import { ClienteService } from 'src/app/Services/cliente.service';
+import {
+  ClienteService,
+  deleteResponse,
+} from 'src/app/Services/cliente.service';
 import { HeaderMenusService } from 'src/app/Services/header-menus.service';
 import { LocalStorageService } from 'src/app/Services/local-storage.service';
 import { SharedService } from 'src/app/Services/shared.service';
 
 @Component({
-  selector: 'app-cliente-cuenta',
-  templateUrl: './cliente-cuenta.component.html',
-  styleUrls: ['./cliente-cuenta.component.scss'],
+  selector: 'app-favoritos',
+  templateUrl: './favorito.component.html',
+  styleUrls: ['./favorito.component.scss'],
 })
-export class ClienteCuentaComponent implements OnInit {
-  cliente: ClienteDTO;
+export class FavoritoComponent implements OnInit {
+  favoritos!: FavoritoDTO[];
   showNoAuthSection: boolean;
   showAuthSectionCliente: boolean;
   showAuthSectionComercio: boolean;
@@ -29,21 +32,6 @@ export class ClienteCuentaComponent implements OnInit {
     this.showNoAuthSection = false;
     this.showAuthSectionCliente = true;
     this.showAuthSectionComercio = false;
-
-    this.cliente = new ClienteDTO(
-      '',
-      '',
-      '',
-      '',
-      '',
-      '',
-      '',
-      '',
-      '',
-      '',
-      '',
-      ''
-    );
   }
 
   ngOnInit(): void {
@@ -57,16 +45,16 @@ export class ClienteCuentaComponent implements OnInit {
       }
     );
 
-    this.loadCliente();
+    this.loadFavoritos();
   }
 
-  private loadCliente(): void {
+  private loadFavoritos(): void {
     let errorResponse: any;
     const userId = this.localStorageService.get('user_id');
     if (userId) {
-      this.clienteService.getClienteById(userId).subscribe({
-        next: (cliente: ClienteDTO) => {
-          this.cliente = cliente;
+      this.clienteService.getClienteFavoritos(userId).subscribe({
+        next: (favoritos: FavoritoDTO[]) => {
+          this.favoritos = favoritos;
         },
         error: (error: HttpErrorResponse) => {
           errorResponse = error.error;
@@ -76,7 +64,34 @@ export class ClienteCuentaComponent implements OnInit {
     }
   }
 
-  updateCliente(idCliente?: string): void {
-    this.router.navigateByUrl('/cliente/' + idCliente);
+  comercioview(): void {
+    this.router.navigateByUrl('comercio-view');
+  }
+
+  deleteFavorito(
+    idCliente: string,
+    idComercio: string,
+    nombreComercio: string
+  ): void {
+    let errorResponse: any;
+    // show confirmation popup
+    let result = confirm(
+      'Confirma eliminar este favorito: ' + nombreComercio + ' .'
+    );
+    if (result) {
+      this.clienteService.deleteFavorito(idCliente, idComercio).subscribe({
+        next: (rowsAffected: deleteResponse) => {
+          /*if (rowsAffected.affected > 0) {
+            this.loadFavoritos();
+          }*/
+
+          this.loadFavoritos();
+        },
+        error: (error: HttpErrorResponse) => {
+          errorResponse = error.error;
+          this.sharedService.errorLog(errorResponse);
+        },
+      });
+    }
   }
 }

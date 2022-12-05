@@ -1,5 +1,5 @@
 export class ClienteDTO {
-  id?: string;
+  idCliente?: string;
   nombre: string;
   apellidos: string;
   tipoUsuario: string;
@@ -7,11 +7,13 @@ export class ClienteDTO {
   email: string;
   password: string;
   idMunicipio: string;
+  municipio: string;
   idProvincia: string;
+  provincia: string;
   codigopostal: string;
 
   constructor(
-    id: string,
+    idCliente: string,
     nombre: string,
     apellidos: string,
     tipoUsuario: string,
@@ -19,10 +21,12 @@ export class ClienteDTO {
     email: string,
     password: string,
     idMunicipio: string,
+    municipio: string,
     idProvincia: string,
+    provincia: string,
     codigopostal: string
   ) {
-    this.id = id;
+    this.idCliente = idCliente;
     this.nombre = nombre;
     this.apellidos = apellidos;
     this.tipoUsuario = tipoUsuario;
@@ -30,7 +34,9 @@ export class ClienteDTO {
     this.email = email;
     this.password = password;
     this.idMunicipio = idMunicipio;
+    this.municipio = municipio;
     this.idProvincia = idProvincia;
+    this.provincia = provincia;
     this.codigopostal = codigopostal;
   }
 }

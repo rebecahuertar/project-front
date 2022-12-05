@@ -108,7 +108,7 @@ export class RegisterComercioComponent implements OnInit {
     this.descripcion = new FormControl(this.registerComercio.descripcion, [
       Validators.required,
       Validators.minLength(5),
-      Validators.maxLength(30),
+      Validators.maxLength(50),
     ]);
 
     this.direccion = new FormControl(this.registerComercio.direccion, [
@@ -159,28 +159,28 @@ export class RegisterComercioComponent implements OnInit {
 
   private loadProvincias(): void {
     let errorResponse: any;
-    this.provinciaService.getProvincias().subscribe(
-      (provincias: ProvinciaDTO[]) => {
+    this.provinciaService.getProvincias().subscribe({
+      next: (provincias: ProvinciaDTO[]) => {
         this.provincias = provincias;
       },
-      (error: HttpErrorResponse) => {
+      error: (error: HttpErrorResponse) => {
         errorResponse = error.error;
         this.sharedService.errorLog(errorResponse);
-      }
-    );
+      },
+    });
   }
 
   private loadMunicipios(idProvincia: string): void {
     let errorResponse: any;
-    this.municipioService.getMunicipios(idProvincia).subscribe(
-      (municipios: MunicipioDTO[]) => {
+    this.municipioService.getMunicipios(idProvincia).subscribe({
+      next: (municipios: MunicipioDTO[]) => {
         this.municipios = municipios;
       },
-      (error: HttpErrorResponse) => {
+      error: (error: HttpErrorResponse) => {
         errorResponse = error.error;
         this.sharedService.errorLog(errorResponse);
-      }
-    );
+      },
+    });
   }
 
   register(): void {

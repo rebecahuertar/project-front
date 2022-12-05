@@ -1,0 +1,31 @@
+<div class="container mt-5">
+  <div class="row rowsty mb-2">
+    <div class="col-8">
+      <span class="me-1">COMERCIOS FAVORITOS</span>
+    </div>
+  </div>
+  <div class="row" *ngFor="let favorito of favoritos">
+    <div class="col-7 mb-2 mb-3 border-bottom">
+      <a class="nav-link" href="#"
+        ><strong>{{ favorito.nombreComercio }}</strong></a
+      >
+    </div>
+    <div class="col-1 mb-2 mb-3 border-bottom">
+      <button class="link-fav" (click)="comercioview()">Ver</button>
+    </div>
+    <div class="col-3 mb-2 mb-3 border-bottom">
+      <button
+        class="link-fav"
+        (click)="
+          deleteFavorito(
+            favorito.idCliente,
+            favorito.idComercio,
+            favorito.nombreComercio
+          )
+        "
+      >
+        Quitar de favoritos
+      </button>
+    </div>
+  </div>
+</div>

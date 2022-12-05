@@ -1,26 +1,30 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ClienteDTO } from 'src/app/Models/cliente.dto';
+
+import { FavoritoDTO } from 'src/app/Models/favorito.dto';
 import { HeaderMenus } from 'src/app/Models/header-menus.dto';
+import { MensajeDTO } from 'src/app/Models/mensaje.dto';
 import { ClienteService } from 'src/app/Services/cliente.service';
 import { HeaderMenusService } from 'src/app/Services/header-menus.service';
 import { LocalStorageService } from 'src/app/Services/local-storage.service';
 import { SharedService } from 'src/app/Services/shared.service';
 
 @Component({
-  selector: 'app-cliente-cuenta',
-  templateUrl: './cliente-cuenta.component.html',
-  styleUrls: ['./cliente-cuenta.component.scss'],
+  selector: 'app-mensajes',
+  templateUrl: './mensaje-cliente.component.html',
+  styleUrls: ['./mensaje-cliente.component.scss'],
 })
-export class ClienteCuentaComponent implements OnInit {
-  cliente: ClienteDTO;
+export class MensajeClienteComponent implements OnInit {
+  favoritos!: FavoritoDTO[];
+  nensajes!: MensajeDTO[];
   showNoAuthSection: boolean;
   showAuthSectionCliente: boolean;
   showAuthSectionComercio: boolean;
 
   constructor(
     private clienteService: ClienteService,
+    private comercioService: ClienteService,
     private router: Router,
     private headerMenusService: HeaderMenusService,
     private localStorageService: LocalStorageService,
@@ -29,21 +33,6 @@ export class ClienteCuentaComponent implements OnInit {
     this.showNoAuthSection = false;
     this.showAuthSectionCliente = true;
     this.showAuthSectionComercio = false;
-
-    this.cliente = new ClienteDTO(
-      '',
-      '',
-      '',
-      '',
-      '',
-      '',
-      '',
-      '',
-      '',
-      '',
-      '',
-      ''
-    );
   }
 
   ngOnInit(): void {
@@ -57,16 +46,16 @@ export class ClienteCuentaComponent implements OnInit {
       }
     );
 
-    this.loadCliente();
+    this.loadMensajesFavoritos();
   }
 
-  private loadCliente(): void {
+  private loadMensajesFavoritos(): void {
     let errorResponse: any;
     const userId = this.localStorageService.get('user_id');
     if (userId) {
-      this.clienteService.getClienteById(userId).subscribe({
-        next: (cliente: ClienteDTO) => {
-          this.cliente = cliente;
+      this.clienteService.getClienteFavoritos(userId).subscribe({
+        next: (favoritos: FavoritoDTO[]) => {
+          this.favoritos = favoritos;
         },
         error: (error: HttpErrorResponse) => {
           errorResponse = error.error;
@@ -74,9 +63,5 @@ export class ClienteCuentaComponent implements OnInit {
         },
       });
     }
-  }
-
-  updateCliente(idCliente?: string): void {
-    this.router.navigateByUrl('/cliente/' + idCliente);
   }
 }

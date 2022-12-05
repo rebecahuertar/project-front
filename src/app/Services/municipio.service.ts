@@ -18,7 +18,7 @@ export class MunicipioService {
 
   getMunicipios(idProvincia: string): Observable<MunicipioDTO[]> {
     return this.http
-      .get<MunicipioDTO[]>(this.urlApi + '/' + idProvincia)
+      .get<MunicipioDTO[]>(this.urlApi + 's/' + idProvincia)
       .pipe(catchError(this.sharedService.handleError));
   }
 }
