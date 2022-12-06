@@ -5,9 +5,11 @@ import { BuscadorListComponent } from './Components/buscador/buscador-list/busca
 import { ClienteCuentaComponent } from './Components/cliente/cliente-cuenta/cliente-cuenta.component';
 import { ClienteFormComponent } from './Components/cliente/cliente-form/cliente-form.component';
 import { ComercioCuentaComponent } from './Components/comercio/comercio-cuenta/comercio-cuenta.component';
+import { ComercioFormComponent } from './Components/comercio/comercio-form/comercio-form.component';
 import { ComercioViewComponent } from './Components/comercio/comercio-view/comercio-view.component';
 import { FavoritoComponent } from './Components/favorito/favorito.component';
 import { HomeComponent } from './Components/home/home.component';
+import { HorarioFormComponent } from './Components/horario/horario-form/horario-form.component';
 import { HorarioListComponent } from './Components/horario/horario-list/horario-list.component';
 import { LoginComponent } from './Components/login/login.component';
 import { MensajeClienteComponent } from './Components/mensaje/mensaje-cliente/mensaje-cliente.component';
@@ -53,13 +55,23 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
-    path: 'comercio-view',
+    path: 'comercio/:idComercio',
+    component: ComercioFormComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'comercio-view/:idComercio',
     component: ComercioViewComponent,
     canActivate: [AuthGuard],
   },
   {
     path: 'horarios',
     component: HorarioListComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'horario/:id',
+    component: HorarioFormComponent,
     canActivate: [AuthGuard],
   },
   {

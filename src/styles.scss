@@ -57,6 +57,37 @@ body {
     padding: 0;       
 }
 
+/*boton formularios*/
+.btn.btn-form { 
+    color: #434242; 
+    background-color: #DFE8CC;
+    border: 1px solid rgb(222, 221, 221); 
+  } 
+   
+.btn.btn-form:hover, 
+.btn.btn-form:focus, 
+.btn.btn-form:active, 
+.btn.btn-form.active, 
+.open .dropdown-toggle.btn.btn-form { 
+    color: #434242; 
+    background-color: #b7bdaa; 
+    border: 1px solid rgb(222, 221, 221); 
+} 
+
+.btn.btn-form:active, 
+.btn.btn-form.active, 
+.open .dropdown-toggle.btn.btn-form { 
+    background-image: none; 
+}  
+
+.btn.btn-form .badge { 
+    color:#F7EDDB; 
+    background-color: #FCFCFC; 
+}
+
+
+
+/*boton menu login*/
 .btn.btn-btv { 
     color: #FCFCFC; 
     background-color: #61764B; 

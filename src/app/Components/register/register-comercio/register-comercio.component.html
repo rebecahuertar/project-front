@@ -126,10 +126,34 @@
               El nombre del comercio es requerido.
             </div>
             <div *ngIf="nombreComercio.errors?.['minlength']">
-              El nombre del comercio deben tener al menos 5 caracteres.
+              El nombre del comercio deben tener al menos 3 caracteres.
             </div>
             <div *ngIf="nombreComercio.errors?.['maxlength']">
-              El nombre del comercio puede tener un máximo de 20 caracteres.
+              El nombre del comercio puede tener un máximo de 30 caracteres.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row mb-2">
+        <div class="col-sm-8">
+          <label for="categoria" class="form-label"
+            >Categoría del Comercio</label
+          >
+          <select class="form-select" id="categoria" [formControl]="categoria">
+            <option
+              *ngFor="let categoria of categorias"
+              value="{{ categoria.id }}"
+            >
+              {{ categoria.nombre }}
+            </option>
+          </select>
+          <!-- Comprobar errores-->
+          <div
+            *ngIf="categoria.errors && isValidForm != null && !isValidForm"
+            [ngClass]="'error'"
+          >
+            <div *ngIf="categoria.errors?.['required']">
+              La categoria es requerida.
             </div>
           </div>
         </div>
@@ -158,7 +182,7 @@
               La descripción del comercio deben tener al menos 5 caracteres.
             </div>
             <div *ngIf="descripcion.errors?.['maxlength']">
-              La descripción del comercio puede tener un máximo de 50
+              La descripción del comercio puede tener un máximo de 80
               caracteres.
             </div>
           </div>
@@ -187,7 +211,7 @@
               La dirección del comercio deben tener al menos 5 caracteres.
             </div>
             <div *ngIf="direccion.errors?.['maxlength']">
-              La dirección del comercio puede tener un máximo de 30 caracteres.
+              La dirección del comercio puede tener un máximo de 40 caracteres.
             </div>
           </div>
         </div>

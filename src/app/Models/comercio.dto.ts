@@ -1,5 +1,5 @@
 export class ComercioDTO {
-  id?: string;
+  idComercio?: string;
   nombre: string;
   apellidos: string;
   tipoUsuario: string;
@@ -9,14 +9,18 @@ export class ComercioDTO {
   nombreComercio: string;
   descripcion: string;
   direccion: string;
+  idCategoria: string;
+  categoria: string;
   idMunicipio: string;
+  municipio: string;
   idProvincia: string;
+  provincia: string;
   codigopostal: string;
   web: string;
   telefono: string;
 
   constructor(
-    id: string,
+    idComercio: string,
     nombre: string,
     apellidos: string,
     tipoUsuario: string,
@@ -26,13 +30,17 @@ export class ComercioDTO {
     nombreComercio: string,
     descripcion: string,
     direccion: string,
+    idCategoria: string,
+    categoria: string,
     idMunicipio: string,
+    municipio: string,
     idProvincia: string,
+    provincia: string,
     codigopostal: string,
     web: string,
     telefono: string
   ) {
-    this.id = id;
+    this.idComercio = idComercio;
     this.nombre = nombre;
     this.apellidos = apellidos;
     this.tipoUsuario = tipoUsuario;
@@ -42,8 +50,12 @@ export class ComercioDTO {
     this.nombreComercio = nombreComercio;
     this.descripcion = descripcion;
     this.direccion = direccion;
+    this.idCategoria = idCategoria;
+    this.categoria = categoria;
     this.idMunicipio = idMunicipio;
+    this.municipio = municipio;
     this.idProvincia = idProvincia;
+    this.provincia = provincia;
     this.codigopostal = codigopostal;
     this.web = web;
     this.telefono = telefono;

@@ -64,8 +64,8 @@ export class FavoritoComponent implements OnInit {
     }
   }
 
-  comercioview(): void {
-    this.router.navigateByUrl('comercio-view');
+  comercioview(idComercio: string): void {
+    this.router.navigateByUrl('/comercio-view/' + idComercio);
   }
 
   deleteFavorito(

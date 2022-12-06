@@ -9,10 +9,11 @@ import {
 import { Router } from '@angular/router';
 import { finalize } from 'rxjs';
 
+import { CategoriaDTO } from 'src/app/Models/categoria.dto';
 import { ComercioDTO } from 'src/app/Models/comercio.dto';
 import { MunicipioDTO } from 'src/app/Models/municipio.dto';
 import { ProvinciaDTO } from 'src/app/Models/provincia.dto';
-
+import { CategoriaService } from 'src/app/Services/categoria.service';
 import { ComercioService } from 'src/app/Services/comercio.service';
 import { HeaderMenusService } from 'src/app/Services/header-menus.service';
 import { MunicipioService } from 'src/app/Services/municipio.service';
@@ -27,6 +28,7 @@ import { SharedService } from 'src/app/Services/shared.service';
 export class RegisterComercioComponent implements OnInit {
   provincias!: ProvinciaDTO[];
   municipios!: MunicipioDTO[];
+  categorias!: CategoriaDTO[];
   registerComercio: ComercioDTO;
 
   nombre: FormControl;
@@ -34,6 +36,7 @@ export class RegisterComercioComponent implements OnInit {
   email: FormControl;
   password: FormControl;
   nombreComercio: FormControl;
+  categoria: FormControl;
   descripcion: FormControl;
   direccion: FormControl;
   provincia: FormControl;
@@ -48,6 +51,7 @@ export class RegisterComercioComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private comercioService: ComercioService,
+    private categoriaService: CategoriaService,
     private provinciaService: ProvinciaService,
     private municipioService: MunicipioService,
     private sharedService: SharedService,
@@ -56,8 +60,13 @@ export class RegisterComercioComponent implements OnInit {
   ) {
     this.loadProvincias();
     this.loadMunicipios('3');
+    this.loadCategorias();
 
     this.registerComercio = new ComercioDTO(
+      '',
+      '',
+      '',
+      '',
       '',
       '',
       '',
@@ -102,19 +111,23 @@ export class RegisterComercioComponent implements OnInit {
 
     this.nombreComercio = new FormControl(
       this.registerComercio.nombreComercio,
-      [Validators.required, Validators.minLength(5), Validators.maxLength(20)]
+      [Validators.required, Validators.minLength(3), Validators.maxLength(30)]
     );
 
     this.descripcion = new FormControl(this.registerComercio.descripcion, [
       Validators.required,
       Validators.minLength(5),
-      Validators.maxLength(50),
+      Validators.maxLength(80),
     ]);
 
     this.direccion = new FormControl(this.registerComercio.direccion, [
       Validators.required,
       Validators.minLength(5),
-      Validators.maxLength(30),
+      Validators.maxLength(40),
+    ]);
+
+    this.categoria = new FormControl(this.registerComercio.idCategoria, [
+      Validators.required,
     ]);
 
     this.provincia = new FormControl(this.registerComercio.idProvincia, [
@@ -147,6 +160,7 @@ export class RegisterComercioComponent implements OnInit {
       nombreComercio: this.nombreComercio,
       descripcion: this.descripcion,
       direccion: this.direccion,
+      categoria: this.categoria,
       provincia: this.provincia,
       municipio: this.municipio,
       codigopostal: this.codigopostal,
@@ -183,6 +197,19 @@ export class RegisterComercioComponent implements OnInit {
     });
   }
 
+  private loadCategorias(): void {
+    let errorResponse: any;
+    this.categoriaService.getCategorias().subscribe({
+      next: (categorias: CategoriaDTO[]) => {
+        this.categorias = categorias;
+      },
+      error: (error: HttpErrorResponse) => {
+        errorResponse = error.error;
+        this.sharedService.errorLog(errorResponse);
+      },
+    });
+  }
+
   register(): void {
     let responseOK: boolean = false;
     this.isValidForm = false;
@@ -203,8 +230,12 @@ export class RegisterComercioComponent implements OnInit {
       nombreComercio: this.nombreComercio.value,
       descripcion: this.descripcion.value,
       direccion: this.direccion.value,
+      idCategoria: this.categoria.value,
+      categoria: '',
       idMunicipio: this.municipio.value,
+      municipio: '',
       idProvincia: this.provincia.value,
+      provincia: '',
       codigopostal: this.codigopostal.value,
       web: this.web.value,
       telefono: this.telefono.value,

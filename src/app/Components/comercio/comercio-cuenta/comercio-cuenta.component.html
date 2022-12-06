@@ -3,7 +3,6 @@
   <div class="row rowsty mb-2">
     <div class="col-8">
       <span class="me-2">DATOS DE ACCESO</span>
-      <span><i class="bi bi-pencil-fill"></i></span>
     </div>
   </div>
   <div class="row">
@@ -15,7 +14,6 @@
   <div class="row rowsty mb-2">
     <div class="col-8">
       <span class="me-2">DATOS COMERCIO</span>
-      <span><i class="bi bi-pencil-fill"></i></span>
     </div>
   </div>
   <div class="row">
@@ -28,35 +26,37 @@
         height="120"
       />
     </div>
-    <div class="col-6">
+    <div class="col-10">
       <p class="mb-1">
         <strong>Nombre comercio:</strong> {{ comercio.nombreComercio }}
       </p>
       <p class="mb-1">
         <strong>Descripción:</strong> {{ comercio.descripcion }}
       </p>
-      <p class="mb-1"><strong>Categoría:</strong> Categoría</p>
+      <p class="mb-1"><strong>Categoría:</strong> {{ comercio.categoria }}</p>
       <p class="mb-1">
         <strong>Encargado:</strong> {{ comercio.nombre }}
         {{ comercio.apellidos }}
       </p>
       <p class="mb-1"><strong>Dirección:</strong> {{ comercio.direccion }}</p>
-      <p class="mb-1"><strong>Municipio:</strong> {{ comercio.idMunicipio }}</p>
-      <p class="mb-1"><strong>Provincia:</strong> {{ comercio.idProvincia }}</p>
+      <p class="mb-1"><strong>Municipio:</strong> {{ comercio.municipio }}</p>
+      <p class="mb-1"><strong>Provincia:</strong> {{ comercio.provincia }}</p>
       <p class="mb-1">
         <strong>Código postal:</strong> {{ comercio.codigopostal }}
       </p>
       <p class="mb-1"><strong>Web:</strong> {{ comercio.web }}</p>
       <p class="mb-4"><strong>Teléfono:</strong> {{ comercio.telefono }}</p>
     </div>
-    <div class="col-3">
-      <img
-        class="img-fluid"
-        src="./assets/images/mapa.png"
-        alt=""
-        width="120"
-        height="120"
-      />
+  </div>
+  <div class="row justify-content-end">
+    <div class="col-2">
+      <button
+        (click)="updateComercio(comercio.idComercio)"
+        type="button"
+        class="btn btn-form"
+      >
+        Editar
+      </button>
     </div>
   </div>
 </div>

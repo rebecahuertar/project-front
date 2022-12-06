@@ -8,11 +8,13 @@ import {
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { finalize } from 'rxjs/operators';
-import { ClienteDTO } from 'src/app/Models/cliente.dto';
+import { CategoriaDTO } from 'src/app/Models/categoria.dto';
+import { ComercioDTO } from 'src/app/Models/comercio.dto';
 import { HeaderMenus } from 'src/app/Models/header-menus.dto';
 import { MunicipioDTO } from 'src/app/Models/municipio.dto';
 import { ProvinciaDTO } from 'src/app/Models/provincia.dto';
-import { ClienteService } from 'src/app/Services/cliente.service';
+import { CategoriaService } from 'src/app/Services/categoria.service';
+import { ComercioService } from 'src/app/Services/comercio.service';
 import { HeaderMenusService } from 'src/app/Services/header-menus.service';
 import { LocalStorageService } from 'src/app/Services/local-storage.service';
 import { MunicipioService } from 'src/app/Services/municipio.service';
@@ -20,36 +22,44 @@ import { ProvinciaService } from 'src/app/Services/provincia.service';
 import { SharedService } from 'src/app/Services/shared.service';
 
 @Component({
-  selector: 'app-cliente-form',
-  templateUrl: './cliente-form.component.html',
-  styleUrls: ['./cliente-form.component.scss'],
+  selector: 'app-comercio-form',
+  templateUrl: './comercio-form.component.html',
+  styleUrls: ['./comercio-form.component.scss'],
 })
-export class ClienteFormComponent implements OnInit {
+export class ComercioFormComponent implements OnInit {
   showNoAuthSection: boolean;
   showAuthSectionCliente: boolean;
   showAuthSectionComercio: boolean;
 
   provincias!: ProvinciaDTO[];
   municipios!: MunicipioDTO[];
-  cliente: ClienteDTO;
+  categorias!: CategoriaDTO[];
+  comercio: ComercioDTO;
 
   nombre: FormControl;
   apellidos: FormControl;
   email: FormControl;
   password: FormControl;
+  nombreComercio: FormControl;
+  descripcion: FormControl;
+  direccion: FormControl;
+  categoria: FormControl;
   provincia: FormControl;
   municipio: FormControl;
   codigopostal: FormControl;
+  web: FormControl;
+  telefono: FormControl;
 
-  clienteForm: FormGroup;
+  comercioForm: FormGroup;
   isValidForm: boolean | null;
 
-  private idCliente: string | null;
+  private idComercio: string | null;
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
-    private clienteService: ClienteService,
+    private comercioService: ComercioService,
+    private categoriaService: CategoriaService,
     private provinciaService: ProvinciaService,
     private municipioService: MunicipioService,
     private sharedService: SharedService,
@@ -63,8 +73,16 @@ export class ClienteFormComponent implements OnInit {
 
     this.loadProvincias();
     this.loadMunicipios('3');
-    this.idCliente = this.activatedRoute.snapshot.paramMap.get('idCliente');
-    this.cliente = new ClienteDTO(
+    this.loadCategorias();
+    this.idComercio = this.activatedRoute.snapshot.paramMap.get('idComercio');
+    this.comercio = new ComercioDTO(
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
       '',
       '',
       '',
@@ -78,54 +96,88 @@ export class ClienteFormComponent implements OnInit {
       '',
       ''
     );
-
     this.isValidForm = null;
-
-    this.nombre = new FormControl(this.cliente.nombre, [
+    this.nombre = new FormControl(this.comercio.nombre, [
       Validators.required,
-      Validators.minLength(3),
+      Validators.minLength(5),
       Validators.maxLength(15),
     ]);
 
-    this.apellidos = new FormControl(this.cliente.apellidos, [
+    this.apellidos = new FormControl(this.comercio.apellidos, [
       Validators.required,
       Validators.minLength(5),
       Validators.maxLength(25),
     ]);
 
-    this.email = new FormControl(this.cliente.email, [
+    this.email = new FormControl(this.comercio.email, [
       Validators.required,
       Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$'),
     ]);
 
-    this.password = new FormControl(this.cliente.password, [
+    this.password = new FormControl(this.comercio.password, [
       Validators.required,
       Validators.minLength(8),
       Validators.maxLength(12),
     ]);
 
-    this.provincia = new FormControl(this.cliente.idProvincia, [
+    this.nombreComercio = new FormControl(this.comercio.nombreComercio, [
+      Validators.required,
+      Validators.minLength(3),
+      Validators.maxLength(30),
+    ]);
+
+    this.descripcion = new FormControl(this.comercio.descripcion, [
+      Validators.required,
+      Validators.minLength(5),
+      Validators.maxLength(80),
+    ]);
+
+    this.direccion = new FormControl(this.comercio.direccion, [
+      Validators.required,
+      Validators.minLength(5),
+      Validators.maxLength(40),
+    ]);
+
+    this.categoria = new FormControl(this.comercio.idCategoria, [
       Validators.required,
     ]);
 
-    this.municipio = new FormControl(this.cliente.idMunicipio, [
+    this.provincia = new FormControl(this.comercio.idProvincia, [
       Validators.required,
     ]);
 
-    this.codigopostal = new FormControl(this.cliente.codigopostal, [
+    this.municipio = new FormControl(this.comercio.idMunicipio, [
+      Validators.required,
+    ]);
+
+    this.codigopostal = new FormControl(this.comercio.codigopostal, [
       Validators.required,
       Validators.minLength(5),
       Validators.maxLength(6),
     ]);
 
-    this.clienteForm = this.formBuilder.group({
+    this.web = new FormControl(this.comercio.web, [
+      //Validators.required,
+    ]);
+
+    this.telefono = new FormControl(this.comercio.telefono, [
+      //Validators.required,
+    ]);
+
+    this.comercioForm = this.formBuilder.group({
       nombre: this.nombre,
       apellidos: this.apellidos,
       email: this.email,
       password: this.password,
-      idProvincia: this.provincia,
-      idMunicipio: this.municipio,
+      nombreComercio: this.nombreComercio,
+      descripcion: this.descripcion,
+      direccion: this.direccion,
+      categoria: this.categoria,
+      provincia: this.provincia,
+      municipio: this.municipio,
       codigopostal: this.codigopostal,
+      web: this.web,
+      telefono: this.telefono,
     });
   }
 
@@ -142,27 +194,39 @@ export class ClienteFormComponent implements OnInit {
       }
     );
 
-    if (this.idCliente) {
-      this.clienteService.getClienteById(this.idCliente).subscribe({
-        next: (cliente: ClienteDTO) => {
-          this.cliente = cliente;
+    if (this.idComercio) {
+      this.comercioService.getComercioById(this.idComercio).subscribe({
+        next: (comercio: ComercioDTO) => {
+          this.comercio = comercio;
 
-          this.email.setValue(this.cliente.email);
-          //this.password.setValue(this.cliente.password);
-          this.nombre.setValue(this.cliente.nombre);
-          this.apellidos.setValue(this.cliente.apellidos);
-          this.provincia.setValue(this.cliente.idProvincia);
-          this.municipio.setValue(this.cliente.idMunicipio);
-          this.codigopostal.setValue(this.cliente.codigopostal);
+          this.nombre.setValue(this.comercio.nombre);
+          this.apellidos.setValue(this.comercio.apellidos);
+          this.email.setValue(this.comercio.email);
+          // this.password.setValue(this.comercio.password);
+          this.nombreComercio.setValue(this.comercio.nombreComercio);
+          this.descripcion.setValue(this.comercio.descripcion);
+          this.direccion.setValue(this.comercio.direccion);
+          this.categoria.setValue(this.comercio.idCategoria);
+          this.provincia.setValue(this.comercio.idProvincia);
+          this.municipio.setValue(this.comercio.idMunicipio);
+          this.codigopostal.setValue(this.comercio.codigopostal);
+          this.web.setValue(this.comercio.web);
+          this.telefono.setValue(this.comercio.telefono);
 
-          this.clienteForm = this.formBuilder.group({
+          this.comercioForm = this.formBuilder.group({
             email: this.email,
             password: this.password,
             nombre: this.nombre,
             apellidos: this.apellidos,
+            nombreComercio: this.nombreComercio,
+            descripcion: this.descripcion,
+            direccion: this.direccion,
+            idCategoria: this.categoria,
             idMunicipio: this.municipio,
             idProvincia: this.provincia,
             codigopostal: this.codigopostal,
+            web: this.web,
+            telefono: this.telefono,
           });
         },
         error: (error: HttpErrorResponse) => {
@@ -199,36 +263,49 @@ export class ClienteFormComponent implements OnInit {
     });
   }
 
-  guardarCliente(): void {
+  private loadCategorias(): void {
+    let errorResponse: any;
+    this.categoriaService.getCategorias().subscribe({
+      next: (categorias: CategoriaDTO[]) => {
+        this.categorias = categorias;
+      },
+      error: (error: HttpErrorResponse) => {
+        errorResponse = error.error;
+        this.sharedService.errorLog(errorResponse);
+      },
+    });
+  }
+
+  guardarComercio(): void {
     let errorResponse: any;
     let responseOK: boolean = false;
 
     this.isValidForm = false;
 
-    if (this.clienteForm.invalid) {
+    if (this.comercioForm.invalid) {
       return;
     }
 
     this.isValidForm = true;
-    this.cliente = this.clienteForm.value;
+    this.comercio = this.comercioForm.value;
 
-    if (this.idCliente) {
+    if (this.idComercio) {
       const userId = this.localStorageService.get('user_id');
       if (userId) {
-        this.cliente.idCliente = userId;
+        this.comercio.idComercio = userId;
 
-        this.clienteService
-          .updateCliente(this.idCliente, this.cliente)
+        this.comercioService
+          .updateComercio(this.idComercio, this.comercio)
           .pipe(
             finalize(async () => {
               await this.sharedService.managementToast(
-                'clienteFeedback',
+                'comercioFeedback',
                 responseOK,
                 errorResponse
               );
 
               if (responseOK) {
-                this.router.navigateByUrl('cliente-cuenta');
+                this.router.navigateByUrl('comercio-cuenta');
               }
             })
           )

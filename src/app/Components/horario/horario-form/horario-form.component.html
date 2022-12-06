@@ -1,0 +1,49 @@
+<div class="container mt-5">
+  <div style="margin-left: auto; margin-right: auto">
+    <p id="horarioFeedback"></p>
+  </div>
+  <form
+    *ngIf="horarioForm"
+    [formGroup]="horarioForm"
+    (ngSubmit)="saveHorario()"
+  >
+    <div class="row rowsty mb-2">
+      <div class="col-8">
+        <span class="me-1">HORARIOS</span>
+      </div>
+    </div>
+    <div class="mb-3 row">
+      <label for="descripcion" class="col-sm-2 col-form-label"
+        >Descripcion:</label
+      >
+      <div class="col-sm-6">
+        <input type="text" class="form-control" [formControl]="descripcion" />
+      </div>
+      <!-- Comprobar errores-->
+      <div
+        *ngIf="descripcion.errors && isValidForm != null && !isValidForm"
+        [ngClass]="'error'"
+      >
+        <div *ngIf="descripcion.errors?.['required']">
+          La descripción es necesaria.
+        </div>
+        <div *ngIf="descripcion.errors?.['minlength']">
+          La descripción deben tener al menos 5 caracteres.
+        </div>
+        <div *ngIf="descripcion.errors?.['maxlength']">
+          La descripción puede tener un máximo de 40 caracteres.
+        </div>
+      </div>
+    </div>
+    <div class="mb-3 row">
+      <label for="visible" class="col-sm-2 col-form-label">Visible:</label>
+      <div class="col-sm-2">
+        <select class="form-select" [formControl]="visible">
+          <option value="SI" [selected]="visible">SI</option>
+          <option value="NO" [selected]="visible">NO</option>
+        </select>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-form">GUARDAR</button>
+  </form>
+</div>

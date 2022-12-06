@@ -13,7 +13,9 @@ import { HeaderComponent } from './Components/header/header.component';
 import { HomeComponent } from './Components/home/home.component';
 
 import { ClienteFormComponent } from './Components/cliente/cliente-form/cliente-form.component';
+import { ComercioFormComponent } from './Components/comercio/comercio-form/comercio-form.component';
 import { ComercioViewComponent } from './Components/comercio/comercio-view/comercio-view.component';
+import { HorarioFormComponent } from './Components/horario/horario-form/horario-form.component';
 import { HorarioListComponent } from './Components/horario/horario-list/horario-list.component';
 import { LoginComponent } from './Components/login/login.component';
 import { MensajeClienteComponent } from './Components/mensaje/mensaje-cliente/mensaje-cliente.component';
@@ -44,6 +46,8 @@ import { AuthInterceptorService } from './Services/auth-interceptor.service';
     ProductoComponent,
     ClienteFormComponent,
     ComercioViewComponent,
+    ComercioFormComponent,
+    HorarioFormComponent,
   ],
   imports: [
     BrowserModule,
