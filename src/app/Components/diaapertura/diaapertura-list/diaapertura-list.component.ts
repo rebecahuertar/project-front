@@ -1,28 +1,28 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { DiaaperturaDTO } from 'src/app/Models/diaapertura.dto';
 import { HeaderMenus } from 'src/app/Models/header-menus.dto';
-import { HorarioDTO } from 'src/app/Models/horario.dto';
-import { HeaderMenusService } from 'src/app/Services/header-menus.service';
 import {
   deleteResponse,
-  HorarioService,
-} from 'src/app/Services/horario.service';
+  DiaaperturaService,
+} from 'src/app/Services/diaapertura.service';
+import { HeaderMenusService } from 'src/app/Services/header-menus.service';
 import { LocalStorageService } from 'src/app/Services/local-storage.service';
 import { SharedService } from 'src/app/Services/shared.service';
 
 @Component({
-  selector: 'app-horario',
-  templateUrl: './horario-list.component.html',
-  styleUrls: ['./horario-list.component.scss'],
+  selector: 'app-diaapertura-list',
+  templateUrl: './diaapertura-list.component.html',
+  styleUrls: ['./diaapertura-list.component.scss'],
 })
-export class HorarioListComponent implements OnInit {
-  horarios!: HorarioDTO[];
+export class DiaaperturaListComponent implements OnInit {
+  dias!: DiaaperturaDTO[];
   showNoAuthSection: boolean;
   showAuthSectionCliente: boolean;
   showAuthSectionComercio: boolean;
   constructor(
-    private horarioService: HorarioService,
+    private diaaperturaService: DiaaperturaService,
     private router: Router,
     private headerMenusService: HeaderMenusService,
     private localStorageService: LocalStorageService,
@@ -44,16 +44,16 @@ export class HorarioListComponent implements OnInit {
       }
     );
 
-    this.loadHorarios();
+    this.loadDias();
   }
 
-  private loadHorarios(): void {
+  private loadDias(): void {
     let errorResponse: any;
     const userId = this.localStorageService.get('user_id');
     if (userId) {
-      this.horarioService.getHorarios(userId).subscribe({
-        next: (horarios: HorarioDTO[]) => {
-          this.horarios = horarios;
+      this.diaaperturaService.getDias(userId).subscribe({
+        next: (dias: DiaaperturaDTO[]) => {
+          this.dias = dias;
         },
         error: (error: HttpErrorResponse) => {
           errorResponse = error.error;
@@ -63,26 +63,26 @@ export class HorarioListComponent implements OnInit {
     }
   }
 
-  crearHorario(): void {
-    this.router.navigateByUrl('/horario/');
+  crearDia(): void {
+    this.router.navigateByUrl('/apertura/');
   }
 
-  editHorario(id: string): void {
-    this.router.navigateByUrl('/horario/' + id);
+  editDia(id: string): void {
+    this.router.navigateByUrl('/apertura/' + id);
   }
 
-  deleteHorario(id: string): void {
+  deleteDia(id: string): void {
     let errorResponse: any;
     // show confirmation popup
-    let result = confirm('¿Confirma eliminar este horario?');
+    let result = confirm('Confirma eliminar este dia');
     if (result) {
-      this.horarioService.deleteHorario(id).subscribe({
+      this.diaaperturaService.deleteDia(id).subscribe({
         next: (rowsAffected: deleteResponse) => {
           /*if (rowsAffected.affected > 0) {
             this.loadFavoritos();
           }*/
 
-          this.loadHorarios();
+          this.loadDias();
         },
         error: (error: HttpErrorResponse) => {
           errorResponse = error.error;

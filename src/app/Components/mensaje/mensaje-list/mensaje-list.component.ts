@@ -2,27 +2,27 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HeaderMenus } from 'src/app/Models/header-menus.dto';
-import { HorarioDTO } from 'src/app/Models/horario.dto';
+import { MensajeDTO } from 'src/app/Models/mensaje.dto';
 import { HeaderMenusService } from 'src/app/Services/header-menus.service';
+import { LocalStorageService } from 'src/app/Services/local-storage.service';
 import {
   deleteResponse,
-  HorarioService,
-} from 'src/app/Services/horario.service';
-import { LocalStorageService } from 'src/app/Services/local-storage.service';
+  MensajeService,
+} from 'src/app/Services/mensaje.service';
 import { SharedService } from 'src/app/Services/shared.service';
 
 @Component({
-  selector: 'app-horario',
-  templateUrl: './horario-list.component.html',
-  styleUrls: ['./horario-list.component.scss'],
+  selector: 'app-mensaje-list',
+  templateUrl: './mensaje-list.component.html',
+  styleUrls: ['./mensaje-list.component.scss'],
 })
-export class HorarioListComponent implements OnInit {
-  horarios!: HorarioDTO[];
+export class MensajeListComponent implements OnInit {
+  mensajes!: MensajeDTO[];
   showNoAuthSection: boolean;
   showAuthSectionCliente: boolean;
   showAuthSectionComercio: boolean;
   constructor(
-    private horarioService: HorarioService,
+    private mensajeService: MensajeService,
     private router: Router,
     private headerMenusService: HeaderMenusService,
     private localStorageService: LocalStorageService,
@@ -44,16 +44,16 @@ export class HorarioListComponent implements OnInit {
       }
     );
 
-    this.loadHorarios();
+    this.loadMensajes();
   }
 
-  private loadHorarios(): void {
+  private loadMensajes(): void {
     let errorResponse: any;
     const userId = this.localStorageService.get('user_id');
     if (userId) {
-      this.horarioService.getHorarios(userId).subscribe({
-        next: (horarios: HorarioDTO[]) => {
-          this.horarios = horarios;
+      this.mensajeService.getMensajes(userId).subscribe({
+        next: (mensajes: MensajeDTO[]) => {
+          this.mensajes = mensajes;
         },
         error: (error: HttpErrorResponse) => {
           errorResponse = error.error;
@@ -63,26 +63,26 @@ export class HorarioListComponent implements OnInit {
     }
   }
 
-  crearHorario(): void {
-    this.router.navigateByUrl('/horario/');
+  crearMensaje(): void {
+    this.router.navigateByUrl('/mensaje/');
   }
 
-  editHorario(id: string): void {
-    this.router.navigateByUrl('/horario/' + id);
+  editMensaje(id: string): void {
+    this.router.navigateByUrl('/mensaje/' + id);
   }
 
-  deleteHorario(id: string): void {
+  deleteMensaje(id: string): void {
     let errorResponse: any;
     // show confirmation popup
-    let result = confirm('¿Confirma eliminar este horario?');
+    let result = confirm('¿Confirma eliminar este mensaje?');
     if (result) {
-      this.horarioService.deleteHorario(id).subscribe({
+      this.mensajeService.deleteMensaje(id).subscribe({
         next: (rowsAffected: deleteResponse) => {
           /*if (rowsAffected.affected > 0) {
             this.loadFavoritos();
           }*/
 
-          this.loadHorarios();
+          this.loadMensajes();
         },
         error: (error: HttpErrorResponse) => {
           errorResponse = error.error;

@@ -1,0 +1,38 @@
+<div class="container mt-5">
+  <div class="row rowsty mb-2">
+    <div class="col-8">
+      <span class="me-1">DÍAS</span>
+    </div>
+  </div>
+  <table class="table">
+    <thead class="thead-light">
+      <tr>
+        <th scope="col">Dia</th>
+        <th scope="col">Estado</th>
+        <th scope="col">Visible</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let dia of dias">
+        <td>{{ dia.dia }}</td>
+        <td>{{ dia.estado }}</td>
+        <td>{{ dia.visible }}</td>
+        <td>
+          <button class="link-fav" (click)="editDia(dia.id)">Editar</button>
+        </td>
+        <td>
+          <button class="link-fav" (click)="deleteDia(dia.id)">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="row justify-content-start">
+    <div class="col-2">
+      <button (click)="crearDia()" type="button" class="btn btn-form">
+        Nuevo
+      </button>
+    </div>
+  </div>
+</div>

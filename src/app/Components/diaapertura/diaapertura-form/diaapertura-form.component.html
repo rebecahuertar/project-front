@@ -1,0 +1,44 @@
+<div class="container mt-5">
+  <div style="margin-left: auto; margin-right: auto">
+    <p id="diaFeedback"></p>
+  </div>
+  <form *ngIf="diaForm" [formGroup]="diaForm" (ngSubmit)="saveDia()">
+    <div class="row rowsty mb-2">
+      <div class="col-8">
+        <span class="me-1">DIAS</span>
+      </div>
+    </div>
+    <div class="mb-3 row">
+      <label for="dia" class="col-sm-2 col-form-label">Dia:</label>
+      <div class="col-sm-3">
+        <input type="date" class="form-control" [formControl]="dia" />
+      </div>
+      <!-- Comprobar errores-->
+      <div
+        *ngIf="dia.errors && isValidForm != null && !isValidForm"
+        [ngClass]="'error'"
+      >
+        <div *ngIf="dia.errors?.['required']">El dia es necesario.</div>
+      </div>
+    </div>
+    <div class="mb-3 row">
+      <label for="estado" class="col-sm-2 col-form-label">Estado:</label>
+      <div class="col-sm-2">
+        <select class="form-select" [formControl]="estado">
+          <option value="ABIERTO" [selected]="estado">ABIERTO</option>
+          <option value="CERRADO" [selected]="estado">CERRADO</option>
+        </select>
+      </div>
+    </div>
+    <div class="mb-3 row">
+      <label for="visible" class="col-sm-2 col-form-label">Visible:</label>
+      <div class="col-sm-2">
+        <select class="form-select" [formControl]="visible">
+          <option value="SI" [selected]="visible">SI</option>
+          <option value="NO" [selected]="visible">NO</option>
+        </select>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-form">GUARDAR</button>
+  </form>
+</div>

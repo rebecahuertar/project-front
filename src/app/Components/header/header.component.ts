@@ -60,15 +60,6 @@ export class HeaderComponent implements OnInit {
       this.router.navigateByUrl('cliente-cuenta');
     }
   }
-
-  favoritos(): void {
-    this.router.navigateByUrl('favoritos');
-  }
-
-  mensajescliente(): void {
-    this.router.navigateByUrl('mensajescliente');
-  }
-
   horarios(): void {
     this.router.navigateByUrl('horarios');
   }
@@ -81,8 +72,16 @@ export class HeaderComponent implements OnInit {
     this.router.navigateByUrl('productos');
   }
 
-  mensajescomercio(): void {
-    this.router.navigateByUrl('mensajescomercio');
+  mensajes(): void {
+    this.router.navigateByUrl('mensajes');
+  }
+
+  favoritos(): void {
+    this.router.navigateByUrl('favoritos');
+  }
+
+  mensajescliente(): void {
+    this.router.navigateByUrl('mensajescliente');
   }
 
   logout(): void {

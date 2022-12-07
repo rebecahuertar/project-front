@@ -1,0 +1,38 @@
+<div class="container mt-5">
+  <div style="margin-left: auto; margin-right: auto">
+    <p id="productoFeedback"></p>
+  </div>
+  <form
+    *ngIf="productoForm"
+    [formGroup]="productoForm"
+    (ngSubmit)="saveProducto()"
+  >
+    <div class="row rowsty mb-2">
+      <div class="col-8">
+        <span class="me-1">PRODUCTOS</span>
+      </div>
+    </div>
+    <div class="mb-3 row">
+      <label for="descripcion" class="col-sm-2 col-form-label">Producto:</label>
+      <div class="col-sm-5">
+        <input type="text" class="form-control" [formControl]="producto" />
+      </div>
+      <!-- Comprobar errores-->
+      <div
+        *ngIf="producto.errors && isValidForm != null && !isValidForm"
+        [ngClass]="'error'"
+      >
+        <div *ngIf="producto.errors?.['required']">
+          El producto es necesario.
+        </div>
+        <div *ngIf="producto.errors?.['minlength']">
+          El producto deben tener al menos 3 caracteres.
+        </div>
+        <div *ngIf="producto.errors?.['maxlength']">
+          El producto puede tener un máximo de 20 caracteres.
+        </div>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-form">GUARDAR</button>
+  </form>
+</div>

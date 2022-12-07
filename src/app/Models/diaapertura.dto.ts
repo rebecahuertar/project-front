@@ -1,18 +1,21 @@
-export class MensajeDTO {
+export class DiaaperturaDTO {
   id: string;
   idComercio: string;
-  mensaje: string;
+  dia: string;
+  estado: string;
   visible: string;
 
   constructor(
     id: string,
     idComercio: string,
-    mensaje: string,
+    dia: string,
+    estado: string,
     visible: string
   ) {
     this.id = id;
     this.idComercio = idComercio;
-    this.mensaje = mensaje;
+    this.dia = dia;
+    this.estado = estado;
     this.visible = visible;
   }
 }

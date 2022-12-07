@@ -2,27 +2,29 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HeaderMenus } from 'src/app/Models/header-menus.dto';
-import { HorarioDTO } from 'src/app/Models/horario.dto';
+
+import { ProductoDTO } from 'src/app/Models/producto.dto';
 import { HeaderMenusService } from 'src/app/Services/header-menus.service';
+
+import { LocalStorageService } from 'src/app/Services/local-storage.service';
 import {
   deleteResponse,
-  HorarioService,
-} from 'src/app/Services/horario.service';
-import { LocalStorageService } from 'src/app/Services/local-storage.service';
+  ProductoService,
+} from 'src/app/Services/producto.service';
 import { SharedService } from 'src/app/Services/shared.service';
 
 @Component({
-  selector: 'app-horario',
-  templateUrl: './horario-list.component.html',
-  styleUrls: ['./horario-list.component.scss'],
+  selector: 'app-producto-list',
+  templateUrl: './producto-list.component.html',
+  styleUrls: ['./producto-list.component.scss'],
 })
-export class HorarioListComponent implements OnInit {
-  horarios!: HorarioDTO[];
+export class ProductoListComponent implements OnInit {
+  productos!: ProductoDTO[];
   showNoAuthSection: boolean;
   showAuthSectionCliente: boolean;
   showAuthSectionComercio: boolean;
   constructor(
-    private horarioService: HorarioService,
+    private productoService: ProductoService,
     private router: Router,
     private headerMenusService: HeaderMenusService,
     private localStorageService: LocalStorageService,
@@ -44,16 +46,16 @@ export class HorarioListComponent implements OnInit {
       }
     );
 
-    this.loadHorarios();
+    this.loadProductos();
   }
 
-  private loadHorarios(): void {
+  private loadProductos(): void {
     let errorResponse: any;
     const userId = this.localStorageService.get('user_id');
     if (userId) {
-      this.horarioService.getHorarios(userId).subscribe({
-        next: (horarios: HorarioDTO[]) => {
-          this.horarios = horarios;
+      this.productoService.getProductos(userId).subscribe({
+        next: (productos: ProductoDTO[]) => {
+          this.productos = productos;
         },
         error: (error: HttpErrorResponse) => {
           errorResponse = error.error;
@@ -63,26 +65,26 @@ export class HorarioListComponent implements OnInit {
     }
   }
 
-  crearHorario(): void {
-    this.router.navigateByUrl('/horario/');
+  crearProducto(): void {
+    this.router.navigateByUrl('/producto/');
   }
 
-  editHorario(id: string): void {
-    this.router.navigateByUrl('/horario/' + id);
+  editProducto(id: string): void {
+    this.router.navigateByUrl('/producto/' + id);
   }
 
-  deleteHorario(id: string): void {
+  deleteProducto(id: string): void {
     let errorResponse: any;
     // show confirmation popup
-    let result = confirm('¿Confirma eliminar este horario?');
+    let result = confirm('¿Confirma eliminar este producto?');
     if (result) {
-      this.horarioService.deleteHorario(id).subscribe({
+      this.productoService.deleteProducto(id).subscribe({
         next: (rowsAffected: deleteResponse) => {
           /*if (rowsAffected.affected > 0) {
             this.loadFavoritos();
           }*/
 
-          this.loadHorarios();
+          this.loadProductos();
         },
         error: (error: HttpErrorResponse) => {
           errorResponse = error.error;

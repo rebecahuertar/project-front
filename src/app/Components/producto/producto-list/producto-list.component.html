@@ -1,0 +1,38 @@
+<div class="container mt-5">
+  <div class="row rowsty mb-2">
+    <div class="col-8">
+      <span class="me-1">PRODUCTOS</span>
+    </div>
+  </div>
+  <table class="table">
+    <thead class="thead-light">
+      <tr>
+        <th scope="col">Producto</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let producto of productos">
+        <td class="col-sm-7">{{ producto.producto }}</td>
+        <td class="col-sm-1">
+          <button class="link-fav" (click)="editProducto(producto.id)">
+            Editar
+          </button>
+        </td>
+        <td class="col-sm-1">
+          <button class="link-fav" (click)="deleteProducto(producto.id)">
+            Eliminar
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="row justify-content-start">
+    <div class="col-2">
+      <button (click)="crearProducto()" type="button" class="btn btn-form">
+        Nuevo
+      </button>
+    </div>
+  </div>
+</div>

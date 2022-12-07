@@ -1,0 +1,51 @@
+<div class="container mt-5">
+  <div style="margin-left: auto; margin-right: auto">
+    <p id="mensajeFeedback"></p>
+  </div>
+  <form
+    *ngIf="mensajeForm"
+    [formGroup]="mensajeForm"
+    (ngSubmit)="saveMensaje()"
+  >
+    <div class="row rowsty mb-2">
+      <div class="col-8">
+        <span class="me-1">MENSAJES</span>
+      </div>
+    </div>
+    <div class="mb-3 row">
+      <label for="mensaje" class="col-sm-2 col-form-label">Mensaje:</label>
+      <div class="col-sm-8">
+        <textarea
+          rows="3"
+          class="form-control"
+          id="mensaje"
+          [formControl]="mensaje"
+        >
+        </textarea>
+      </div>
+      <!-- Comprobar errores-->
+      <div
+        *ngIf="mensaje.errors && isValidForm != null && !isValidForm"
+        [ngClass]="'error'"
+      >
+        <div *ngIf="mensaje.errors?.['required']">El mensaje es necesario.</div>
+        <div *ngIf="mensaje.errors?.['minlength']">
+          El mensaje deben tener al menos 10 caracteres.
+        </div>
+        <div *ngIf="mensaje.errors?.['maxlength']">
+          El mensaje puede tener un máximo de 100 caracteres.
+        </div>
+      </div>
+    </div>
+    <div class="mb-3 row">
+      <label for="visible" class="col-sm-2 col-form-label">Visible:</label>
+      <div class="col-sm-2">
+        <select class="form-select" [formControl]="visible">
+          <option value="SI" [selected]="visible">SI</option>
+          <option value="NO" [selected]="visible">NO</option>
+        </select>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-form">GUARDAR</button>
+  </form>
+</div>
