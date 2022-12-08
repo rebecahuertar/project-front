@@ -74,7 +74,7 @@ export class DiaaperturaListComponent implements OnInit {
   deleteDia(id: string): void {
     let errorResponse: any;
     // show confirmation popup
-    let result = confirm('Confirma eliminar este dia');
+    let result = confirm('¿Confirma eliminar este dia?');
     if (result) {
       this.diaaperturaService.deleteDia(id).subscribe({
         next: (rowsAffected: deleteResponse) => {

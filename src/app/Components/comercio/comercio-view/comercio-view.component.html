@@ -1,1 +1,89 @@
-<p>comercio-view works!</p>
+<div class="container">
+  <h3 class="mb-3">{{ comercio.nombreComercio }}</h3>
+  <div class="row rowsty mb-2">
+    <div class="col-8">
+      <span class="me-2">DATOS COMERCIO</span>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-2">
+      <img
+        class="img-fluid"
+        src="./assets/images/imagen_com.png"
+        alt=""
+        width="120"
+        height="120"
+      />
+    </div>
+    <div class="col-10">
+      <p class="mb-1">
+        <strong>Nombre comercio:</strong> {{ comercio.nombreComercio }}
+      </p>
+      <p class="mb-1">
+        <strong>Descripción:</strong> {{ comercio.descripcion }}
+      </p>
+      <p class="mb-1"><strong>Categoría:</strong> {{ comercio.categoria }}</p>
+      <p class="mb-1">
+        <strong>Encargado:</strong> {{ comercio.nombre }}
+        {{ comercio.apellidos }}
+      </p>
+      <p class="mb-1"><strong>Dirección:</strong> {{ comercio.direccion }}</p>
+      <p class="mb-1"><strong>Municipio:</strong> {{ comercio.municipio }}</p>
+      <p class="mb-1"><strong>Provincia:</strong> {{ comercio.provincia }}</p>
+      <p class="mb-1">
+        <strong>Código postal:</strong> {{ comercio.codigopostal }}
+      </p>
+      <p class="mb-1"><strong>Web:</strong> {{ comercio.web }}</p>
+      <p class="mb-4"><strong>Teléfono:</strong> {{ comercio.telefono }}</p>
+    </div>
+  </div>
+  <div class="row rowsty mb-2">
+    <div class="col-8">
+      <span class="me-1">HORARIOS</span>
+    </div>
+  </div>
+  <table class="table">
+    <tbody>
+      <tr *ngFor="let horario of horarios">
+        <td>{{ horario.descripcion }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="row rowsty mb-2">
+    <div class="col-8">
+      <span class="me-1">DÍAS DE APERTURA</span>
+    </div>
+  </div>
+  <table class="table">
+    <tbody>
+      <tr *ngFor="let dia of dias">
+        <td>{{ dia.dia }}</td>
+        <td>{{ dia.estado }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="row rowsty mb-2">
+    <div class="col-8">
+      <span class="me-1">MENSAJES</span>
+    </div>
+  </div>
+  <table class="table">
+    <tbody>
+      <tr *ngFor="let mensaje of mensajes">
+        <td>{{ mensaje.mensaje }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="row rowsty mb-2">
+    <div class="col-8">
+      <span class="me-1">PRODUCTOS</span>
+    </div>
+  </div>
+  <table class="table">
+    <tbody>
+      <tr *ngFor="let producto of productos">
+        <td>{{ producto.producto }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

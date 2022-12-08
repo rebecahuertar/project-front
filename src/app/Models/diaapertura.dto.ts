@@ -1,14 +1,14 @@
 export class DiaaperturaDTO {
   id: string;
   idComercio: string;
-  dia: string;
+  dia: Date;
   estado: string;
   visible: string;
 
   constructor(
     id: string,
     idComercio: string,
-    dia: string,
+    dia: Date,
     estado: string,
     visible: string
   ) {

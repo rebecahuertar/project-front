@@ -68,18 +68,14 @@ export class FavoritoComponent implements OnInit {
     this.router.navigateByUrl('/comercio-view/' + idComercio);
   }
 
-  deleteFavorito(
-    idCliente: string,
-    idComercio: string,
-    nombreComercio: string
-  ): void {
+  deleteFavorito(id: string, nombreComercio: string): void {
     let errorResponse: any;
     // show confirmation popup
     let result = confirm(
-      'Confirma eliminar este favorito: ' + nombreComercio + ' .'
+      '¿Confirma eliminar este comercio: ' + nombreComercio + ' como favorito?'
     );
     if (result) {
-      this.clienteService.deleteFavorito(idCliente, idComercio).subscribe({
+      this.clienteService.deleteFavorito(id).subscribe({
         next: (rowsAffected: deleteResponse) => {
           /*if (rowsAffected.affected > 0) {
             this.loadFavoritos();

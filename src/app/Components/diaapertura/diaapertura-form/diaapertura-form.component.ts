@@ -52,7 +52,7 @@ export class DiaaperturaFormComponent implements OnInit {
 
     this.idDia = this.activatedRoute.snapshot.paramMap.get('id');
 
-    this.diaA = new DiaaperturaDTO('', '', '', '', '');
+    this.diaA = new DiaaperturaDTO('', '', new Date(), '', '');
 
     this.isUpdateMode = false;
 

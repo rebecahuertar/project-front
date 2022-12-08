@@ -31,6 +31,12 @@ export class DiaaperturaService {
       .pipe(catchError(this.sharedService.handleError));
   }
 
+  getDiasVisibles(idComercio: string): Observable<DiaaperturaDTO[]> {
+    return this.http
+      .get<DiaaperturaDTO[]>(this.urlApi + 's/visible/' + idComercio)
+      .pipe(catchError(this.sharedService.handleError));
+  }
+
   getDiaById(id: string): Observable<DiaaperturaDTO> {
     return this.http
       .get<DiaaperturaDTO>(this.urlApi + '/' + id)

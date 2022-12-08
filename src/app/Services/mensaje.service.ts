@@ -31,6 +31,12 @@ export class MensajeService {
       .pipe(catchError(this.sharedService.handleError));
   }
 
+  getMensajesVisibles(idComercio: string): Observable<MensajeDTO[]> {
+    return this.http
+      .get<MensajeDTO[]>(this.urlApi + 's/visible/' + idComercio)
+      .pipe(catchError(this.sharedService.handleError));
+  }
+
   getMensajeById(id: string): Observable<MensajeDTO> {
     return this.http
       .get<MensajeDTO>(this.urlApi + '/' + id)

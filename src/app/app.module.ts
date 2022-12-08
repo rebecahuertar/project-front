@@ -28,6 +28,7 @@ import { ProductoListComponent } from './Components/producto/producto-list/produ
 import { RegisterClienteComponent } from './Components/register/register-cliente/register-cliente.component';
 import { RegisterComercioComponent } from './Components/register/register-comercio/register-comercio.component';
 import { RegisterComponent } from './Components/register/register.component';
+import { FormatDatePipe } from './Pipes/format-date.pipe';
 import { AuthInterceptorService } from './Services/auth-interceptor.service';
 
 @NgModule({
@@ -56,6 +57,7 @@ import { AuthInterceptorService } from './Services/auth-interceptor.service';
     MensajeClienteComponent,
     MensajeListComponent,
     MensajeFormComponent,
+    FormatDatePipe,
   ],
   imports: [
     BrowserModule,

@@ -31,6 +31,12 @@ export class HorarioService {
       .pipe(catchError(this.sharedService.handleError));
   }
 
+  getHorariosVisibles(idComercio: string): Observable<HorarioDTO[]> {
+    return this.http
+      .get<HorarioDTO[]>(this.urlApi + 's/visible/' + idComercio)
+      .pipe(catchError(this.sharedService.handleError));
+  }
+
   getHorarioById(id: string): Observable<HorarioDTO> {
     return this.http
       .get<HorarioDTO>(this.urlApi + '/' + id)

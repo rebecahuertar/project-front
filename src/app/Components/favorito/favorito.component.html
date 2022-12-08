@@ -6,9 +6,7 @@
   </div>
   <div class="row" *ngFor="let favorito of favoritos">
     <div class="col-7 mb-2 mb-3 border-bottom">
-      <a class="nav-link" href="#"
-        ><strong>{{ favorito.nombreComercio }}</strong></a
-      >
+      <strong>{{ favorito.nombreComercio }}</strong>
     </div>
     <div class="col-1 mb-2 mb-3 border-bottom">
       <button class="link-fav" (click)="comercioview(favorito.idComercio)">
@@ -18,13 +16,7 @@
     <div class="col-3 mb-2 mb-3 border-bottom">
       <button
         class="link-fav"
-        (click)="
-          deleteFavorito(
-            favorito.idCliente,
-            favorito.idComercio,
-            favorito.nombreComercio
-          )
-        "
+        (click)="deleteFavorito(favorito.id, favorito.nombreComercio)"
       >
         Quitar de favoritos
       </button>

@@ -16,7 +16,7 @@
     </thead>
     <tbody>
       <tr *ngFor="let dia of dias">
-        <td>{{ dia.dia }}</td>
+        <td>{{ dia.dia | formatDate : 3 }}</td>
         <td>{{ dia.estado }}</td>
         <td>{{ dia.visible }}</td>
         <td>
