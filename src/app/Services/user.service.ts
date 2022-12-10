@@ -17,12 +17,6 @@ export class UserService {
     this.urlApi = 'http://127.0.0.1:8000/api/' + this.controller;
   }
 
-  /* registerUser(user: ClienteDTO): Observable<ClienteDTO> {
-    return this.http
-      .post<ClienteDTO>(this.urlApi, user)
-      .pipe(catchError(this.sharedService.handleError));
-  }*/
-
   getUSerById(userId: string): Observable<UserDTO> {
     return this.http
       .get<UserDTO>(this.urlApi + '/' + userId)

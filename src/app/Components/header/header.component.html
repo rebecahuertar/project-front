@@ -1,9 +1,9 @@
 <header class="headerC p-3 mb-3 border-bottom">
   <nav class="navbar navbar-expand-lg navbar-light">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">
+      <button class="menus" (click)="home()">
         <img src="./assets/images/logo.png" alt="" width="50" height="61" />
-      </a>
+      </button>
       <button
         class="navbar-toggler"
         type="button"
@@ -16,14 +16,17 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0" *ngIf="showNoAuthSection">
+        <ul
+          class="navbar-nav me-auto ms-3 mb-2 mb-lg-0"
+          *ngIf="showNoAuthSection"
+        >
           <li class="nav-item">
             <button class="menus" (click)="home()">Inicio</button>
           </li>
         </ul>
 
         <ul
-          class="navbar-nav me-auto mb-2 mb-lg-0"
+          class="navbar-nav me-auto ms-3 mb-2 mb-lg-0"
           *ngIf="showAuthSectionComercio"
         >
           <li class="nav-item pe-3">
@@ -47,7 +50,7 @@
         </ul>
 
         <ul
-          class="navbar-nav me-auto mb-2 mb-lg-0"
+          class="navbar-nav me-auto ms-3 mb-2 mb-lg-0"
           *ngIf="showAuthSectionCliente"
         >
           <li class="nav-item pe-3">
@@ -63,32 +66,31 @@
             <button class="menus" (click)="mensajescliente()">Mensajes</button>
           </li>
         </ul>
-
-        <form class="me-3 mb-2">
-          <input
-            class="form-control"
-            type="search"
-            (keydown.enter)="buscador()"
-            placeholder="Buscar..."
-            aria-label="Search"
-          />
-        </form>
-        <form class="mb-2" *ngIf="showNoAuthSection">
+        <div class="mb-2" *ngIf="showNoAuthSection">
+          <button class="btn btn-light me-2" (click)="buscador()">
+            <i class="bi bi-search"></i>
+          </button>
           <button class="btn btn-btv me-2" (click)="login()">Login</button>
           <button class="btn btn-secondary" (click)="register()">
             Crear Cuenta
           </button>
-        </form>
-        <form class="mb-2" *ngIf="showAuthSectionCliente">
+        </div>
+        <div class="mb-2" *ngIf="showAuthSectionCliente">
+          <button class="btn btn-light me-2" (click)="buscador()">
+            <i class="bi bi-search"></i>
+          </button>
           <button class="btn btn-secondary" (click)="logout()">
             Cerrar sesión
           </button>
-        </form>
-        <form class="mb-2" *ngIf="showAuthSectionComercio">
+        </div>
+        <div class="mb-2" *ngIf="showAuthSectionComercio">
+          <button class="btn btn-light me-2" (click)="buscador()">
+            <i class="bi bi-search"></i>
+          </button>
           <button class="btn btn-secondary" (click)="logout()">
             Cerrar sesión
           </button>
-        </form>
+        </div>
       </div>
     </div>
   </nav>

@@ -4,9 +4,9 @@ import { Router } from '@angular/router';
 import { FavoritoDTO } from 'src/app/Models/favorito.dto';
 import { HeaderMenus } from 'src/app/Models/header-menus.dto';
 import {
-  ClienteService,
   deleteResponse,
-} from 'src/app/Services/cliente.service';
+  FavoritoService,
+} from 'src/app/Services/favorito.service';
 import { HeaderMenusService } from 'src/app/Services/header-menus.service';
 import { LocalStorageService } from 'src/app/Services/local-storage.service';
 import { SharedService } from 'src/app/Services/shared.service';
@@ -23,7 +23,7 @@ export class FavoritoComponent implements OnInit {
   showAuthSectionComercio: boolean;
 
   constructor(
-    private clienteService: ClienteService,
+    private favoritoService: FavoritoService,
     private router: Router,
     private headerMenusService: HeaderMenusService,
     private localStorageService: LocalStorageService,
@@ -52,7 +52,7 @@ export class FavoritoComponent implements OnInit {
     let errorResponse: any;
     const userId = this.localStorageService.get('user_id');
     if (userId) {
-      this.clienteService.getClienteFavoritos(userId).subscribe({
+      this.favoritoService.getClienteFavoritos(userId).subscribe({
         next: (favoritos: FavoritoDTO[]) => {
           this.favoritos = favoritos;
         },
@@ -68,26 +68,29 @@ export class FavoritoComponent implements OnInit {
     this.router.navigateByUrl('/comercio-view/' + idComercio);
   }
 
-  deleteFavorito(id: string, nombreComercio: string): void {
+  deleteFavorito(idComercio: string, nombreComercio: string): void {
     let errorResponse: any;
     // show confirmation popup
     let result = confirm(
-      '¿Confirma eliminar este comercio: ' + nombreComercio + ' como favorito?'
+      '¿Confirma eliminar este comercio ' + nombreComercio + ' como favorito?'
     );
     if (result) {
-      this.clienteService.deleteFavorito(id).subscribe({
-        next: (rowsAffected: deleteResponse) => {
-          /*if (rowsAffected.affected > 0) {
-            this.loadFavoritos();
-          }*/
+      const idCliente = this.localStorageService.get('user_id');
+      if (idCliente) {
+        this.favoritoService.deleteFavorito(idCliente, idComercio).subscribe({
+          next: (rowsAffected: deleteResponse) => {
+            /*if (rowsAffected.affected > 0) {
+                this.loadFavoritos();
+              }*/
 
-          this.loadFavoritos();
-        },
-        error: (error: HttpErrorResponse) => {
-          errorResponse = error.error;
-          this.sharedService.errorLog(errorResponse);
-        },
-      });
+            this.loadFavoritos();
+          },
+          error: (error: HttpErrorResponse) => {
+            errorResponse = error.error;
+            this.sharedService.errorLog(errorResponse);
+          },
+        });
+      }
     }
   }
 }

@@ -1,5 +1,24 @@
 <div class="container">
-  <h3 class="mb-3">{{ comercio.nombreComercio }}</h3>
+  <div class="row mb-2">
+    <div class="col-10">
+      <h3 class="mb-3">{{ comercio.nombreComercio }}</h3>
+    </div>
+    <div class="col-2" *ngIf="esfavorito == true">
+      <button class="menus" (click)="deleteFavorito(comercio.nombreComercio)">
+        <img src="./assets/images/favorito.png" alt="" width="40" height="40" />
+      </button>
+    </div>
+    <div class="col-2" *ngIf="esfavorito == false">
+      <button class="menus" (click)="anyadeFavorito(comercio.nombreComercio)">
+        <img
+          src="./assets/images/nofavorito.png"
+          alt=""
+          width="40"
+          height="40"
+        />
+      </button>
+    </div>
+  </div>
   <div class="row rowsty mb-2">
     <div class="col-8">
       <span class="me-2">DATOS COMERCIO</span>

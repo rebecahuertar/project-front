@@ -1,36 +1,40 @@
 <div class="container mt-5">
-  <div class="row rowsty mb-2">
-    <div class="col-8">
-      <span class="me-1">MENSAJES DE COMERCIOS FAVORITOS</span>
+  <div class="container mt-5">
+    <div class="row rowsty mb-2">
+      <div class="col-8">
+        <span class="me-1">MENSAJES DE COMERCIOS FAVORITOS</span>
+      </div>
     </div>
+    <table class="table">
+      <thead class="thead-light">
+        <tr>
+          <th scope="col">Fecha</th>
+          <th scope="col">Nombre Comercio</th>
+          <th scope="col"></th>
+          <th scope="col">Mensaje</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let mensaje of mensajes">
+          <td class="col-sm-2">{{ mensaje.updated_at | formatDate : 3 }}</td>
+          <td class="col-sm-3">
+            <button class="link-fav" (click)="comercioview(mensaje.idComercio)">
+              {{ mensaje.nombreComercio }}
+            </button>
+          </td>
+          <td class="col-sm-1">
+            <button
+              class="link-fav"
+              (click)="
+                noVerMensajes(mensaje.idFavorito, mensaje.nombreComercio)
+              "
+            >
+              <i class="bi bi-eye-slash-fill"></i>
+            </button>
+          </td>
+          <td class="col-sm-6">{{ mensaje.mensaje }}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
-  <table class="table">
-    <thead class="thead-light">
-      <tr>
-        <th scope="col">Fecha</th>
-        <th scope="col">Nombre Comercio</th>
-        <th scope="col"></th>
-        <th scope="col">Mensaje</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let mensaje of mensajes">
-        <td class="col-sm-2">{{ mensaje.updated_at | formatDate : 3 }}</td>
-        <td class="col-sm-3">
-          <button class="link-fav" (click)="comercioview(mensaje.idComercio)">
-            {{ mensaje.nombreComercio }}
-          </button>
-        </td>
-        <td class="col-sm-1">
-          <button
-            class="link-fav"
-            (click)="noVerMensajes(mensaje.idFavorito, mensaje.nombreComercio)"
-          >
-            <i class="bi bi-eye-slash-fill"></i>
-          </button>
-        </td>
-        <td class="col-sm-6">{{ mensaje.mensaje }}</td>
-      </tr>
-    </tbody>
-  </table>
 </div>

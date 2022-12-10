@@ -1,10 +1,11 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { finalize } from 'rxjs/operators';
 import { FavoritoDTO } from 'src/app/Models/favorito.dto';
 import { HeaderMenus } from 'src/app/Models/header-menus.dto';
 import { MensajeClienteDTO } from 'src/app/Models/mensajecliente.dto';
-import { ClienteService } from 'src/app/Services/cliente.service';
+import { FavoritoService } from 'src/app/Services/favorito.service';
 import { HeaderMenusService } from 'src/app/Services/header-menus.service';
 import { LocalStorageService } from 'src/app/Services/local-storage.service';
 import { SharedService } from 'src/app/Services/shared.service';
@@ -15,14 +16,14 @@ import { SharedService } from 'src/app/Services/shared.service';
   styleUrls: ['./mensaje-cliente.component.scss'],
 })
 export class MensajeClienteComponent implements OnInit {
-  favoritos!: FavoritoDTO[];
+  favorito!: FavoritoDTO;
   mensajes!: MensajeClienteDTO[];
   showNoAuthSection: boolean;
   showAuthSectionCliente: boolean;
   showAuthSectionComercio: boolean;
 
   constructor(
-    private clienteService: ClienteService,
+    private favoritoService: FavoritoService,
     private router: Router,
     private headerMenusService: HeaderMenusService,
     private localStorageService: LocalStorageService,
@@ -31,6 +32,7 @@ export class MensajeClienteComponent implements OnInit {
     this.showNoAuthSection = false;
     this.showAuthSectionCliente = true;
     this.showAuthSectionComercio = false;
+    this.favorito = new FavoritoDTO('', '', '', '', '');
   }
 
   ngOnInit(): void {
@@ -56,7 +58,7 @@ export class MensajeClienteComponent implements OnInit {
     let fecha: any;
     const userId = this.localStorageService.get('user_id');
     if (userId) {
-      this.clienteService.getClienteMensajesFavoritos(userId).subscribe({
+      this.favoritoService.getClienteMensajesFavoritos(userId).subscribe({
         next: (mensajes: MensajeClienteDTO[]) => {
           this.mensajes = mensajes;
         },
@@ -70,47 +72,36 @@ export class MensajeClienteComponent implements OnInit {
 
   noVerMensajes(idFavorito: string, nombreComercio: string): void {
     let errorResponse: any;
-    // show confirmation popup
+    let responseOK: boolean = false;
     let result = confirm(
-      '¿Desea dejar de ver los mensajes del comercio: ' + nombreComercio + '?'
+      '¿Desea dejar de ver los mensajes del comercio ' + nombreComercio + '?'
     );
     if (result) {
-      /*this.clienteService.updateNoVerMensaje(idFavorito).subscribe({
-        next: (rowsAffected: deleteResponse) => {
-          if (rowsAffected.affected > 0) {
-            this.loadFavoritos();
-          }
+      this.favorito.verMensajes = 'NO';
+      this.favoritoService
+        .updateVerMensaje(idFavorito, this.favorito)
+        .pipe(
+          finalize(async () => {
+            await this.sharedService.managementToast(
+              'mensajeCFeedback',
+              responseOK,
+              errorResponse
+            );
 
-          this.loadMensajesFavoritos();
-        },
-        error: (error: HttpErrorResponse) => {
-          errorResponse = error.error;
-          this.sharedService.errorLog(errorResponse);
-        },
-      });*/
+            if (responseOK) {
+              this.loadMensajesFavoritos();
+            }
+          })
+        )
+        .subscribe({
+          next: () => {
+            responseOK = true;
+          },
+          error: (error: HttpErrorResponse) => {
+            errorResponse = error.error;
+            this.sharedService.errorLog(errorResponse);
+          },
+        });
     }
   }
-
-  /*noVerMensajes(idFavorito: string, nombreComercio: string): void {
-    let errorResponse: any;
-    // show confirmation popup
-    let result = confirm(
-      '¿Desea dejar de ver los mensajes del comercio: ' + nombreComercio + '?'
-    );
-    if (result) {
-      this.clienteService.updateNoVerMensaje(idFavorito).subscribe({
-        next: (rowsAffected: deleteResponse) => {
-          if (rowsAffected.affected > 0) {
-            this.loadFavoritos();
-          }
-
-          this.loadMensajesFavoritos();
-        },
-        error: (error: HttpErrorResponse) => {
-          errorResponse = error.error;
-          this.sharedService.errorLog(errorResponse);
-        },
-      });
-    }
-  }*/
 }
