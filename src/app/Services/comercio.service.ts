@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { BuscadorDTO } from '../Models/buscador.dto';
 import { ComercioDTO } from '../Models/comercio.dto';
 import { SharedService } from './shared.service';
 
@@ -35,6 +36,12 @@ export class ComercioService {
   ): Observable<ComercioDTO> {
     return this.http
       .put<ComercioDTO>(this.urlApi + '/' + idComercio, comercio)
+      .pipe(catchError(this.sharedService.handleError));
+  }
+
+  buscador(dato: string): Observable<BuscadorDTO[]> {
+    return this.http
+      .get<BuscadorDTO[]>(this.urlApi + '/buscador/' + dato)
       .pipe(catchError(this.sharedService.handleError));
   }
 }

@@ -1,65 +1,66 @@
-<div class="container">
-  <a href="detalleComercio.html" class="nav-link">
-    <div class="card mt-4 mb-3" style="max-width: 400px">
-      <div class="row">
-        <div class="col-4">
-          <img
-            class="card-img-top"
-            src="./assets/images/image.png"
-            alt="Card image cap"
-          />
+<div class="container mt-5">
+  <div style="margin-left: auto; margin-right: auto">
+    <p id="buscadorFeedback"></p>
+  </div>
+  <form *ngIf="buscarForm" [formGroup]="buscarForm">
+    <div>
+      <div class="input-group w-25 mb-2">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Buscar..."
+          id="btnGroupAddon2"
+          [formControl]="dato"
+        />
+        <button
+          class="btn btn-secondary"
+          aria-describedby="btnGroupAddon2"
+          (click)="buscador()"
+        >
+          <i class="bi bi-search"></i>
+        </button>
+      </div>
+      <!-- Comprobar errores-->
+      <div
+        *ngIf="dato.errors && isValidForm != null && !isValidForm"
+        [ngClass]="'error'"
+      >
+        <div *ngIf="dato.errors?.['required']">Escriba algo en el campo.</div>
+        <div *ngIf="dato.errors?.['minlength']">
+          El dato buscado deben tener al menos 3 caracteres.
         </div>
-        <div class="col-8">
-          <div class="card-body">
-            <h5 class="card-title">Nombre del comercio</h5>
-            <p class="card-text">
-              Lorem Ipsum is simply dummy text of the printing.
-            </p>
-          </div>
+        <div *ngIf="dato.errors?.['maxlength']">
+          El dato buscado puede tener un máximo de 15 caracteres.
         </div>
       </div>
     </div>
-  </a>
-  <a href="detalleComercio.html" class="nav-link">
-    <div class="card mt-4 mb-3" style="max-width: 400px">
-      <div class="row">
-        <div class="col-4">
-          <img
-            class="card-img-top"
-            src="./assets/images/image.png"
-            alt="Card image cap"
-          />
-        </div>
-        <div class="col-8">
-          <div class="card-body">
-            <h5 class="card-title">Nombre del comercio</h5>
-            <p class="card-text">
-              Lorem Ipsum is simply dummy text of the printing.
-            </p>
-          </div>
-        </div>
+  </form>
+  <div class="mt-5">
+    <div class="row" *ngFor="let resultado of resultados">
+      <div class="col-7 mb-2 mb-3 border-bottom">
+        <p>
+          <strong>{{ resultado.nombreComercio }}</strong>
+        </p>
+        <p>{{ resultado.descripcion }}</p>
+        <p>{{ resultado.direccion }}</p>
+        <p>
+          {{ resultado.municipio }} - {{ resultado.provincia }} -
+          {{ resultado.codigopostal }}
+        </p>
+      </div>
+      <div class="col-1 mb-2 mb-3 border-bottom">
+        <button
+          class="btn btn-form"
+          (click)="comercioview(resultado.idComercio)"
+        >
+          Ver
+        </button>
       </div>
     </div>
-  </a>
-  <a href="detalleComercio.html" class="nav-link">
-    <div class="card mt-4 mb-3" style="max-width: 400px">
-      <div class="row">
-        <div class="col-4">
-          <img
-            class="card-img-top"
-            src="./assets/images/image.png"
-            alt="Card image cap"
-          />
-        </div>
-        <div class="col-8">
-          <div class="card-body">
-            <h5 class="card-title">Nombre del comercio</h5>
-            <p class="card-text">
-              Lorem Ipsum is simply dummy text of the printing.
-            </p>
-          </div>
-        </div>
-      </div>
+    <div *ngIf="!responseOK">
+      <p>
+        <strong>{{ mensaje }}</strong>
+      </p>
     </div>
-  </a>
+  </div>
 </div>

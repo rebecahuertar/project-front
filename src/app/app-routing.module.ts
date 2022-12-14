@@ -65,7 +65,6 @@ const routes: Routes = [
   {
     path: 'comercio-view/:idComercio',
     component: ComercioViewComponent,
-    canActivate: [AuthGuard],
   },
   {
     path: 'horarios',

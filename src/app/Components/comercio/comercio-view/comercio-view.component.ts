@@ -94,6 +94,7 @@ export class ComercioViewComponent implements OnInit {
         }
       }
     );
+
     this.loadComercio();
     this.comprobarFavorito();
     this.loadHorariosVisibles();
@@ -104,27 +105,24 @@ export class ComercioViewComponent implements OnInit {
 
   private loadComercio(): void {
     let errorResponse: any;
-    // const userId = this.localStorageService.get('user_id');
-    if (this.idCliente) {
-      if (this.idComercio) {
-        this.comercioService.getComercioById(this.idComercio).subscribe({
-          next: (comercio: ComercioDTO) => {
-            this.comercio = comercio;
-          },
-          error: (error: HttpErrorResponse) => {
-            errorResponse = error.error;
-            this.sharedService.errorLog(errorResponse);
-          },
-        });
-      }
+    if (this.idComercio) {
+      this.comercioService.getComercioById(this.idComercio).subscribe({
+        next: (comercio: ComercioDTO) => {
+          this.comercio = comercio;
+        },
+        error: (error: HttpErrorResponse) => {
+          errorResponse = error.error;
+          this.sharedService.errorLog(errorResponse);
+        },
+      });
     }
   }
   //comprobar si este comercio lo tenemos como favorito
   comprobarFavorito(): void {
     let errorResponse: any;
     this.idComercio;
-    //const idCliente = this.localStorageService.get('user_id');
-    if (this.idCliente) {
+    const tipo_usuario = this.localStorageService.get('tipo_usuario');
+    if (this.idCliente && tipo_usuario != 'comercio') {
       if (this.idComercio) {
         this.favoritoService
           .comprobarFavorito(this.idCliente, this.idComercio)
@@ -143,74 +141,63 @@ export class ComercioViewComponent implements OnInit {
   //mostrar horarios solo los que estan visibles por el Comercio.
   private loadHorariosVisibles(): void {
     let errorResponse: any;
-    //const userId = this.localStorageService.get('user_id');
-    if (this.idCliente) {
-      if (this.idComercio) {
-        this.horarioService.getHorariosVisibles(this.idComercio).subscribe({
-          next: (horarios: HorarioDTO[]) => {
-            this.horarios = horarios;
-          },
-          error: (error: HttpErrorResponse) => {
-            errorResponse = error.error;
-            this.sharedService.errorLog(errorResponse);
-          },
-        });
-      }
+    if (this.idComercio) {
+      this.horarioService.getHorariosVisibles(this.idComercio).subscribe({
+        next: (horarios: HorarioDTO[]) => {
+          this.horarios = horarios;
+        },
+        error: (error: HttpErrorResponse) => {
+          errorResponse = error.error;
+          this.sharedService.errorLog(errorResponse);
+        },
+      });
     }
   }
 
   //mostrar dias de apertura solo los que estan visibles por el Comercio.
   private loadDiasAperturaVisibles(): void {
     let errorResponse: any;
-    // const userId = this.localStorageService.get('user_id');
-    if (this.idCliente) {
-      if (this.idComercio) {
-        this.diaaperturaService.getDiasVisibles(this.idComercio).subscribe({
-          next: (dias: DiaaperturaDTO[]) => {
-            this.dias = dias;
-          },
-          error: (error: HttpErrorResponse) => {
-            errorResponse = error.error;
-            this.sharedService.errorLog(errorResponse);
-          },
-        });
-      }
+    if (this.idComercio) {
+      this.diaaperturaService.getDiasVisibles(this.idComercio).subscribe({
+        next: (dias: DiaaperturaDTO[]) => {
+          this.dias = dias;
+        },
+        error: (error: HttpErrorResponse) => {
+          errorResponse = error.error;
+          this.sharedService.errorLog(errorResponse);
+        },
+      });
     }
   }
 
   private loadProductos(): void {
     let errorResponse: any;
-    // const userId = this.localStorageService.get('user_id');
-    if (this.idCliente) {
-      if (this.idComercio) {
-        this.productoService.getProductos(this.idComercio).subscribe({
-          next: (productos: ProductoDTO[]) => {
-            this.productos = productos;
-          },
-          error: (error: HttpErrorResponse) => {
-            errorResponse = error.error;
-            this.sharedService.errorLog(errorResponse);
-          },
-        });
-      }
+    if (this.idComercio) {
+      this.productoService.getProductos(this.idComercio).subscribe({
+        next: (productos: ProductoDTO[]) => {
+          this.productos = productos;
+        },
+        error: (error: HttpErrorResponse) => {
+          errorResponse = error.error;
+          this.sharedService.errorLog(errorResponse);
+        },
+      });
     }
   }
 
   private loadMensajes(): void {
     let errorResponse: any;
-    //const userId = this.localStorageService.get('user_id');
-    if (this.idCliente) {
-      if (this.idComercio) {
-        this.mensajeService.getMensajesVisibles(this.idComercio).subscribe({
-          next: (mensajes: MensajeDTO[]) => {
-            this.mensajes = mensajes;
-          },
-          error: (error: HttpErrorResponse) => {
-            errorResponse = error.error;
-            this.sharedService.errorLog(errorResponse);
-          },
-        });
-      }
+
+    if (this.idComercio) {
+      this.mensajeService.getMensajesVisibles(this.idComercio).subscribe({
+        next: (mensajes: MensajeDTO[]) => {
+          this.mensajes = mensajes;
+        },
+        error: (error: HttpErrorResponse) => {
+          errorResponse = error.error;
+          this.sharedService.errorLog(errorResponse);
+        },
+      });
     }
   }
 
