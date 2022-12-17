@@ -70,13 +70,13 @@
   </table>
   <div class="row rowsty mb-2">
     <div class="col-8">
-      <span class="me-1">DÍAS DE APERTURA</span>
+      <span class="me-1">DÍAS DE APERTURA EN DOMINGO Y FESTIVOS</span>
     </div>
   </div>
   <table class="table">
     <tbody>
       <tr *ngFor="let dia of dias">
-        <td>{{ dia.dia }}</td>
+        <td>{{ dia.dia | formatDate : 3 }}</td>
         <td>{{ dia.estado }}</td>
       </tr>
     </tbody>
