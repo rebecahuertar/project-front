@@ -19,7 +19,6 @@ import { HomeComponent } from './Components/home/home.component';
 import { HorarioFormComponent } from './Components/horario/horario-form/horario-form.component';
 import { HorarioListComponent } from './Components/horario/horario-list/horario-list.component';
 import { LoginComponent } from './Components/login/login.component';
-
 import { MensajeClienteComponent } from './Components/mensaje/mensaje-cliente/mensaje-cliente.component';
 import { MensajeFormComponent } from './Components/mensaje/mensaje-form/mensaje-form.component';
 import { MensajeListComponent } from './Components/mensaje/mensaje-list/mensaje-list.component';
