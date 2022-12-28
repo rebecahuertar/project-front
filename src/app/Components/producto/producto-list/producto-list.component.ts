@@ -93,4 +93,8 @@ export class ProductoListComponent implements OnInit {
       });
     }
   }
+
+  home(): void {
+    this.router.navigateByUrl('home');
+  }
 }

@@ -85,4 +85,8 @@ export class ComercioCuentaComponent implements OnInit {
   updateComercio(idComercio?: string): void {
     this.router.navigateByUrl('/comercio/' + idComercio);
   }
+
+  home(): void {
+    this.router.navigateByUrl('home');
+  }
 }

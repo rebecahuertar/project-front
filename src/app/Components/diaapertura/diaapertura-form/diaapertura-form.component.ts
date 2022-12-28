@@ -192,4 +192,12 @@ export class DiaaperturaFormComponent implements OnInit {
       this.createDia();
     }
   }
+
+  volver(): void {
+    this.router.navigateByUrl('aperturas');
+  }
+
+  home(): void {
+    this.router.navigateByUrl('home');
+  }
 }

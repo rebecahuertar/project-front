@@ -194,4 +194,12 @@ export class MensajeFormComponent implements OnInit {
       this.createMensaje();
     }
   }
+
+  volver(): void {
+    this.router.navigateByUrl('mensajes');
+  }
+
+  home(): void {
+    this.router.navigateByUrl('home');
+  }
 }

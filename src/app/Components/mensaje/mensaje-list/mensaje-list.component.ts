@@ -91,4 +91,7 @@ export class MensajeListComponent implements OnInit {
       });
     }
   }
+  home(): void {
+    this.router.navigateByUrl('home');
+  }
 }

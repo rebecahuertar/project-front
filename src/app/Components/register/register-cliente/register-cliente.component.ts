@@ -59,9 +59,9 @@ export class RegisterClienteComponent implements OnInit {
       '',
       '',
       '',
+      '628',
       '',
-      '',
-      '',
+      '3',
       '',
       ''
     );
@@ -114,11 +114,17 @@ export class RegisterClienteComponent implements OnInit {
       idmunicipio: this.municipio,
       codigopostal: this.codigopostal,
     });
+
+    this.registerForm.controls['idprovincia'].valueChanges.subscribe(
+      (value) => {
+        this.loadMunicipios(value);
+      }
+    );
   }
 
   ngOnInit(): void {}
 
-  private loadProvincias(): void {
+  loadProvincias(): void {
     let errorResponse: any;
     this.provinciaService.getProvincias().subscribe({
       next: (provincias: ProvinciaDTO[]) => {
@@ -131,7 +137,7 @@ export class RegisterClienteComponent implements OnInit {
     });
   }
 
-  private loadMunicipios(idProvincia: string): void {
+  loadMunicipios(idProvincia: string): void {
     let errorResponse: any;
     this.municipioService.getMunicipios(idProvincia).subscribe({
       next: (municipios: MunicipioDTO[]) => {

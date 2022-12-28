@@ -75,9 +75,9 @@ export class RegisterComercioComponent implements OnInit {
       '',
       '',
       '',
+      '628',
       '',
-      '',
-      '',
+      '3',
       '',
       '',
       '',
@@ -161,12 +161,18 @@ export class RegisterComercioComponent implements OnInit {
       descripcion: this.descripcion,
       direccion: this.direccion,
       categoria: this.categoria,
-      provincia: this.provincia,
-      municipio: this.municipio,
+      idprovincia: this.provincia,
+      idmunicipio: this.municipio,
       codigopostal: this.codigopostal,
       web: this.web,
       telefono: this.telefono,
     });
+
+    this.registerForm.controls['idprovincia'].valueChanges.subscribe(
+      (value) => {
+        this.loadMunicipios(value);
+      }
+    );
   }
 
   ngOnInit(): void {}

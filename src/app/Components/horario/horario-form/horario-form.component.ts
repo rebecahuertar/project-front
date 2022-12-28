@@ -192,4 +192,11 @@ export class HorarioFormComponent implements OnInit {
       this.createHorario();
     }
   }
+  volver(): void {
+    this.router.navigateByUrl('horarios');
+  }
+
+  home(): void {
+    this.router.navigateByUrl('home');
+  }
 }

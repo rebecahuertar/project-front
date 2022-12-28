@@ -244,4 +244,12 @@ export class ClienteFormComponent implements OnInit {
       }
     }
   }
+
+  volver(): void {
+    this.router.navigateByUrl('cliente-cuenta');
+  }
+
+  home(): void {
+    this.router.navigateByUrl('home');
+  }
 }

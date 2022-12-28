@@ -2,7 +2,12 @@
   <nav class="navbar navbar-expand-lg navbar-light">
     <div class="container-fluid">
       <button class="menus" (click)="home()">
-        <img src="./assets/images/logo.png" alt="" width="50" height="61" />
+        <img
+          src="./assets/images/logo.png"
+          alt="logo web"
+          width="50"
+          height="61"
+        />
       </button>
       <button
         class="navbar-toggler"
@@ -21,7 +26,14 @@
           *ngIf="showNoAuthSection"
         >
           <li class="nav-item">
-            <button class="menus" (click)="home()">Inicio</button>
+            <button
+              class="menus"
+              (click)="home()"
+              routerLink="/home"
+              routerLinkActive="activebutton"
+            >
+              Inicio
+            </button>
           </li>
         </ul>
 
@@ -30,22 +42,64 @@
           *ngIf="showAuthSectionComercio"
         >
           <li class="nav-item pe-3">
-            <button class="menus" (click)="home()">Inicio</button>
+            <button
+              class="menus"
+              (click)="home()"
+              routerLink="/home"
+              routerLinkActive="activebutton"
+            >
+              Inicio
+            </button>
           </li>
           <li class="nav-item pe-3">
-            <button class="menus" (click)="cuenta()">Mi cuenta</button>
+            <button
+              class="menus"
+              (click)="cuenta()"
+              routerLink="/comercio-cuenta"
+              routerLinkActive="activebutton"
+            >
+              Mi cuenta
+            </button>
           </li>
           <li class="nav-item pe-3">
-            <button class="menus" (click)="horarios()">Horarios</button>
+            <button
+              class="menus"
+              (click)="horarios()"
+              routerLink="/horarios"
+              routerLinkActive="activebutton"
+            >
+              Horarios
+            </button>
           </li>
           <li class="nav-item pe-3">
-            <button class="menus" (click)="aperturas()">Aperturas</button>
+            <button
+              class="menus"
+              (click)="aperturas()"
+              routerLink="/aperturas"
+              routerLinkActive="activebutton"
+            >
+              Aperturas
+            </button>
           </li>
           <li class="nav-item pe-3">
-            <button class="menus" (click)="productos()">Productos</button>
+            <button
+              class="menus"
+              (click)="productos()"
+              routerLink="/productos"
+              routerLinkActive="activebutton"
+            >
+              Productos
+            </button>
           </li>
           <li class="nav-item pe-3">
-            <button class="menus" (click)="mensajes()">Mensajes</button>
+            <button
+              class="menus"
+              (click)="mensajes()"
+              routerLink="/mensajes"
+              routerLinkActive="activebutton"
+            >
+              Mensajes
+            </button>
           </li>
         </ul>
 
@@ -54,16 +108,44 @@
           *ngIf="showAuthSectionCliente"
         >
           <li class="nav-item pe-3">
-            <button class="menus" (click)="home()">Inicio</button>
+            <button
+              class="menus"
+              (click)="home()"
+              routerLink="/home"
+              routerLinkActive="activebutton"
+            >
+              Inicio
+            </button>
           </li>
           <li class="nav-item pe-3">
-            <button class="menus" (click)="cuenta()">Mi cuenta</button>
+            <button
+              class="menus"
+              (click)="cuenta()"
+              routerLink="/cliente-cuenta"
+              routerLinkActive="activebutton"
+            >
+              Mi cuenta
+            </button>
           </li>
           <li class="nav-item pe-3">
-            <button class="menus" (click)="favoritos()">Favoritos</button>
+            <button
+              class="menus"
+              (click)="favoritos()"
+              routerLink="/favoritos"
+              routerLinkActive="activebutton"
+            >
+              Favoritos
+            </button>
           </li>
           <li class="nav-item">
-            <button class="menus" (click)="mensajescliente()">Mensajes</button>
+            <button
+              class="menus"
+              (click)="mensajescliente()"
+              routerLink="/mensajescliente"
+              routerLinkActive="activebutton"
+            >
+              Mensajes
+            </button>
           </li>
         </ul>
         <div class="mb-2" *ngIf="showNoAuthSection">

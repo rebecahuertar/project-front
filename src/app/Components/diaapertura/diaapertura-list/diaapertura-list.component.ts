@@ -91,4 +91,7 @@ export class DiaaperturaListComponent implements OnInit {
       });
     }
   }
+  home(): void {
+    this.router.navigateByUrl('home');
+  }
 }

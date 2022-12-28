@@ -186,4 +186,11 @@ export class ProductoFormComponent implements OnInit {
       this.createProducto();
     }
   }
+  volver(): void {
+    this.router.navigateByUrl('productos');
+  }
+
+  home(): void {
+    this.router.navigateByUrl('home');
+  }
 }

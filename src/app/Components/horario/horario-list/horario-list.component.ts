@@ -91,4 +91,7 @@ export class HorarioListComponent implements OnInit {
       });
     }
   }
+  home(): void {
+    this.router.navigateByUrl('home');
+  }
 }

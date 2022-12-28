@@ -21,6 +21,7 @@ export class FavoritoComponent implements OnInit {
   showNoAuthSection: boolean;
   showAuthSectionCliente: boolean;
   showAuthSectionComercio: boolean;
+  mensaje: any;
 
   constructor(
     private favoritoService: FavoritoService,
@@ -32,6 +33,7 @@ export class FavoritoComponent implements OnInit {
     this.showNoAuthSection = false;
     this.showAuthSectionCliente = true;
     this.showAuthSectionComercio = false;
+    this.mensaje = '';
   }
 
   ngOnInit(): void {
@@ -58,7 +60,8 @@ export class FavoritoComponent implements OnInit {
         },
         error: (error: HttpErrorResponse) => {
           errorResponse = error.error;
-          this.sharedService.errorLog(errorResponse);
+          this.mensaje = errorResponse.message;
+          //this.sharedService.errorLog(errorResponse);
         },
       });
     }
@@ -92,5 +95,9 @@ export class FavoritoComponent implements OnInit {
         });
       }
     }
+  }
+
+  home(): void {
+    this.router.navigateByUrl('home');
   }
 }

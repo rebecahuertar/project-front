@@ -1,3 +1,11 @@
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item">
+      <button class="menu-breadcrumb" (click)="home()">Inicio</button>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">Mensajes</li>
+  </ol>
+</nav>
 <div class="container mt-5">
   <div class="container mt-5">
     <div class="row rowsty mb-2">
@@ -6,7 +14,7 @@
       </div>
     </div>
     <table class="table">
-      <thead class="thead-light">
+      <thead class="thead-light" *ngIf="mensajes">
         <tr>
           <th scope="col">Fecha</th>
           <th scope="col">Nombre Comercio</th>
@@ -36,5 +44,31 @@
         </tr>
       </tbody>
     </table>
+    <div
+      class="row mt-5"
+      class="alert alert-warning"
+      role="alert"
+      *ngIf="nomensajes"
+    >
+      <p>{{ nomensajes }}</p>
+    </div>
+    <div class="row rowsty mt-5">
+      <div class="col-8">
+        <span class="me-1">ACTIVAR MENSAJES DE COMERCIOS FAVORITOS</span>
+      </div>
+    </div>
+    <div class="col-8 mt-2">
+      <div *ngFor="let favorito of favoritos">
+        <p *ngIf="favorito.verMensajes == 'NO'">
+          {{ favorito.nombreComercio }}
+          <button
+            class="link-fav"
+            (click)="siVerMensajes(favorito.id, favorito.nombreComercio)"
+          >
+            <i class="bi bi-eye-fill"></i>
+          </button>
+        </p>
+      </div>
+    </div>
   </div>
 </div>

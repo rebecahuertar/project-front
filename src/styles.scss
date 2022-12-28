@@ -47,6 +47,9 @@ body {
   padding: 0;       
 }
 
+.activebutton{
+    font-weight: bold;
+}
 
 .link-fav{
     color:#61764B;
@@ -167,3 +170,33 @@ body {
    font-size: 0.8em;
     
 }
+
+/* carusel de imagenes */
+.carousel-inner { 
+    text-align: center; 
+}
+.carousel .item > img {
+     display: inline-block; 
+}
+.carousel.slide{
+    margin-top: 3em;
+}
+.carousel-control-prev-icon, .carousel-control-next-icon {
+    filter: invert(108%);
+}
+
+/* breadcrumb */
+.breadcrumb{
+    font-size: 0.8em;
+    margin-left: 50px;    
+}
+.menu-breadcrumb{
+    background: none;
+    border: 0;
+    color: inherit; 
+    font-weight: bolder;    
+    line-height: normal;
+    overflow: visible;
+    padding: 0; 
+}
+

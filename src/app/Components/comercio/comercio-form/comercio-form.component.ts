@@ -321,4 +321,12 @@ export class ComercioFormComponent implements OnInit {
       }
     }
   }
+
+  volver(): void {
+    this.router.navigateByUrl('comercio-cuenta');
+  }
+
+  home(): void {
+    this.router.navigateByUrl('home');
+  }
 }

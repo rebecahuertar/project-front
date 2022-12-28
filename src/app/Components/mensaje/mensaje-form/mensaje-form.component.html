@@ -1,3 +1,14 @@
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item">
+      <button class="menu-breadcrumb" (click)="home()">Inicio</button>
+    </li>
+    <li class="breadcrumb-item">
+      <button class="menu-breadcrumb" (click)="volver()">Mensajes</button>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">Editar</li>
+  </ol>
+</nav>
 <div class="container mt-5">
   <div style="margin-left: auto; margin-right: auto">
     <p id="mensajeFeedback"></p>
@@ -46,6 +57,11 @@
         </select>
       </div>
     </div>
-    <button type="submit" class="btn btn-form">GUARDAR</button>
+    <div class="col-3">
+      <button type="submit" class="btn btn-form">GUARDAR</button>
+      <button (click)="volver()" type="button" class="btn btn-secondary ms-2">
+        Volver
+      </button>
+    </div>
   </form>
 </div>

@@ -79,4 +79,8 @@ export class ClienteCuentaComponent implements OnInit {
   updateCliente(idCliente?: string): void {
     this.router.navigateByUrl('/cliente/' + idCliente);
   }
+
+  home(): void {
+    this.router.navigateByUrl('home');
+  }
 }

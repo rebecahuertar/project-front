@@ -16,11 +16,14 @@ import { SharedService } from 'src/app/Services/shared.service';
   styleUrls: ['./mensaje-cliente.component.scss'],
 })
 export class MensajeClienteComponent implements OnInit {
+  favoritos!: FavoritoDTO[];
   favorito!: FavoritoDTO;
   mensajes!: MensajeClienteDTO[];
   showNoAuthSection: boolean;
   showAuthSectionCliente: boolean;
   showAuthSectionComercio: boolean;
+
+  nomensajes: string;
 
   constructor(
     private favoritoService: FavoritoService,
@@ -33,6 +36,7 @@ export class MensajeClienteComponent implements OnInit {
     this.showAuthSectionCliente = true;
     this.showAuthSectionComercio = false;
     this.favorito = new FavoritoDTO('', '', '', '', '');
+    this.nomensajes = '';
   }
 
   ngOnInit(): void {
@@ -47,6 +51,7 @@ export class MensajeClienteComponent implements OnInit {
     );
 
     this.loadMensajesFavoritos();
+    this.loadNoMensajesFavoritos();
   }
 
   comercioview(idComercio: string): void {
@@ -64,7 +69,9 @@ export class MensajeClienteComponent implements OnInit {
         },
         error: (error: HttpErrorResponse) => {
           errorResponse = error.error;
-          this.sharedService.errorLog(errorResponse);
+          this.mensajes = [];
+          this.nomensajes = errorResponse.message;
+          //this.sharedService.errorLog(errorResponse);
         },
       });
     }
@@ -89,7 +96,9 @@ export class MensajeClienteComponent implements OnInit {
             );
 
             if (responseOK) {
+              this.nomensajes = '';
               this.loadMensajesFavoritos();
+              this.loadNoMensajesFavoritos();
             }
           })
         )
@@ -103,5 +112,63 @@ export class MensajeClienteComponent implements OnInit {
           },
         });
     }
+  }
+
+  siVerMensajes(idFavorito: string, nombreComercio: string): void {
+    let errorResponse: any;
+    let responseOK: boolean = false;
+    let result = confirm(
+      '¿Desea ver los mensajes del comercio ' + nombreComercio + '?'
+    );
+    if (result) {
+      this.favorito.verMensajes = 'SI';
+      this.favoritoService
+        .updateVerMensaje(idFavorito, this.favorito)
+        .pipe(
+          finalize(async () => {
+            await this.sharedService.managementToast(
+              'mensajeCFeedback',
+              responseOK,
+              errorResponse
+            );
+
+            if (responseOK) {
+              this.nomensajes = '';
+              this.loadMensajesFavoritos();
+              this.loadNoMensajesFavoritos();
+            }
+          })
+        )
+        .subscribe({
+          next: () => {
+            responseOK = true;
+          },
+          error: (error: HttpErrorResponse) => {
+            errorResponse = error.error;
+            this.sharedService.errorLog(errorResponse);
+          },
+        });
+    }
+  }
+  //listado de favoritos que no tenemos visibles los mensajes
+  //para poder activarlos otra vez.
+  private loadNoMensajesFavoritos(): void {
+    let errorResponse: any;
+    const userId = this.localStorageService.get('user_id');
+    if (userId) {
+      this.favoritoService.getClienteFavoritos(userId).subscribe({
+        next: (favoritos: FavoritoDTO[]) => {
+          this.favoritos = favoritos;
+        },
+        error: (error: HttpErrorResponse) => {
+          errorResponse = error.error;
+          this.sharedService.errorLog(errorResponse);
+        },
+      });
+    }
+  }
+
+  home(): void {
+    this.router.navigateByUrl('home');
   }
 }
