@@ -237,11 +237,11 @@
               [formControl]="provincia"
             >
               <option
-                *ngFor="let provincia of provincias"
-                value="{{ provincia.id }}"
+                *ngFor="let listprovincia of listprovincias"
+                value="{{ listprovincia.id }}"
                 [selected]="provincia"
               >
-                {{ provincia.provincia }}
+                {{ listprovincia.provincia }}
               </option>
             </select>
           </div>
@@ -266,11 +266,11 @@
               [formControl]="municipio"
             >
               <option
-                *ngFor="let municipio of municipios"
-                value="{{ municipio.id }}"
+                *ngFor="let listmunicipio of listmunicipios"
+                value="{{ listmunicipio.id }}"
                 [selected]="municipio"
               >
-                {{ municipio.municipio }}
+                {{ listmunicipio.municipio }}
               </option>
             </select>
           </div>

@@ -30,14 +30,17 @@
         [ngClass]="'error'"
       >
         <div *ngIf="dia.errors?.['required']">El dia es necesario.</div>
+        <div *ngIf="dia.errors?.['pattern']">
+          El día no tiene un formato válido.
+        </div>
       </div>
     </div>
     <div class="mb-3 row">
       <label for="estado" class="col-sm-2 col-form-label">Estado:</label>
       <div class="col-sm-2">
         <select class="form-select" [formControl]="estado">
-          <option value="ABIERTO" [selected]="estado">ABIERTO</option>
           <option value="CERRADO" [selected]="estado">CERRADO</option>
+          <option value="ABIERTO" [selected]="estado">ABIERTO</option>
         </select>
       </div>
     </div>
@@ -45,8 +48,8 @@
       <label for="visible" class="col-sm-2 col-form-label">Visible:</label>
       <div class="col-sm-2">
         <select class="form-select" [formControl]="visible">
-          <option value="SI" [selected]="visible">SI</option>
           <option value="NO" [selected]="visible">NO</option>
+          <option value="SI" [selected]="visible">SI</option>
         </select>
       </div>
     </div>

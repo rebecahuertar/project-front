@@ -52,7 +52,7 @@ export class HorarioFormComponent implements OnInit {
 
     this.idHorario = this.activatedRoute.snapshot.paramMap.get('id');
 
-    this.horario = new HorarioDTO('', '', '', '');
+    this.horario = new HorarioDTO('', '', '', 'SI');
 
     this.isUpdateMode = false;
 
@@ -64,7 +64,9 @@ export class HorarioFormComponent implements OnInit {
       Validators.maxLength(40),
     ]);
 
-    this.visible = new FormControl(this.horario.visible, [Validators.required]);
+    this.visible = new FormControl(this.horario.visible, [
+      // Validators.required
+    ]);
 
     this.horarioForm = this.formBuilder.group({
       descripcion: this.descripcion,

@@ -31,8 +31,8 @@ export class ComercioFormComponent implements OnInit {
   showAuthSectionCliente: boolean;
   showAuthSectionComercio: boolean;
 
-  provincias!: ProvinciaDTO[];
-  municipios!: MunicipioDTO[];
+  listprovincias!: ProvinciaDTO[];
+  listmunicipios!: MunicipioDTO[];
   categorias!: CategoriaDTO[];
   comercio: ComercioDTO;
 
@@ -71,10 +71,11 @@ export class ComercioFormComponent implements OnInit {
     this.showAuthSectionCliente = true;
     this.showAuthSectionComercio = false;
 
-    this.loadProvincias();
-    this.loadMunicipios('3');
-    this.loadCategorias();
     this.idComercio = this.activatedRoute.snapshot.paramMap.get('idComercio');
+    this.loadProvincias();
+
+    this.loadCategorias();
+
     this.comercio = new ComercioDTO(
       '',
       '',
@@ -199,6 +200,8 @@ export class ComercioFormComponent implements OnInit {
         next: (comercio: ComercioDTO) => {
           this.comercio = comercio;
 
+          this.loadMunicipios(this.comercio.idProvincia);
+
           this.nombre.setValue(this.comercio.nombre);
           this.apellidos.setValue(this.comercio.apellidos);
           this.email.setValue(this.comercio.email);
@@ -240,8 +243,8 @@ export class ComercioFormComponent implements OnInit {
   private loadProvincias(): void {
     let errorResponse: any;
     this.provinciaService.getProvincias().subscribe({
-      next: (provincias: ProvinciaDTO[]) => {
-        this.provincias = provincias;
+      next: (listprovincias: ProvinciaDTO[]) => {
+        this.listprovincias = listprovincias;
       },
       error: (error: HttpErrorResponse) => {
         errorResponse = error.error;
@@ -253,8 +256,8 @@ export class ComercioFormComponent implements OnInit {
   private loadMunicipios(idProvincia: string): void {
     let errorResponse: any;
     this.municipioService.getMunicipios(idProvincia).subscribe({
-      next: (municipios: MunicipioDTO[]) => {
-        this.municipios = municipios;
+      next: (listmunicipios: MunicipioDTO[]) => {
+        this.listmunicipios = listmunicipios;
       },
       error: (error: HttpErrorResponse) => {
         errorResponse = error.error;

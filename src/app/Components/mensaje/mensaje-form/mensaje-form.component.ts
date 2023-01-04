@@ -52,7 +52,7 @@ export class MensajeFormComponent implements OnInit {
 
     this.idMensaje = this.activatedRoute.snapshot.paramMap.get('id');
 
-    this.mensajeM = new MensajeDTO('', '', '', '');
+    this.mensajeM = new MensajeDTO('', '', '', 'SI');
 
     this.isUpdateMode = false;
 

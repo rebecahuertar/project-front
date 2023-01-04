@@ -41,6 +41,7 @@ export class SharedService {
             '. Status code: ' +
             error?.statusCode;
         } else {
+          toastMsg.className = 'show requestKo';
           toastMsg.textContent = ' ' + error?.message;
           /*toastMsg.textContent =
             'Error on form submitted, show logs. Message: ' +

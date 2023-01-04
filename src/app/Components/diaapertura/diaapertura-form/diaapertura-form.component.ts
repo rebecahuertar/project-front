@@ -52,13 +52,16 @@ export class DiaaperturaFormComponent implements OnInit {
 
     this.idDia = this.activatedRoute.snapshot.paramMap.get('id');
 
-    this.diaA = new DiaaperturaDTO('', '', new Date(), '', '');
+    this.diaA = new DiaaperturaDTO('', '', new Date(), 'ABIERTO', 'SI');
 
     this.isUpdateMode = false;
 
     this.isValidForm = null;
 
-    this.dia = new FormControl(this.diaA.dia, [Validators.required]);
+    this.dia = new FormControl(this.diaA.dia, [
+      Validators.required,
+      Validators.pattern(/^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$/),
+    ]);
     this.estado = new FormControl(this.diaA.estado, [Validators.required]);
 
     this.visible = new FormControl(this.diaA.visible, [Validators.required]);

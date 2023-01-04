@@ -29,8 +29,8 @@ export class ClienteFormComponent implements OnInit {
   showAuthSectionCliente: boolean;
   showAuthSectionComercio: boolean;
 
-  provincias!: ProvinciaDTO[];
-  municipios!: MunicipioDTO[];
+  listprovincias!: ProvinciaDTO[];
+  listmunicipios!: MunicipioDTO[];
   cliente: ClienteDTO;
 
   nombre: FormControl;
@@ -60,10 +60,7 @@ export class ClienteFormComponent implements OnInit {
     this.showNoAuthSection = false;
     this.showAuthSectionCliente = true;
     this.showAuthSectionComercio = false;
-
     this.loadProvincias();
-    this.loadMunicipios('3');
-    this.idCliente = this.activatedRoute.snapshot.paramMap.get('idCliente');
     this.cliente = new ClienteDTO(
       '',
       '',
@@ -78,6 +75,7 @@ export class ClienteFormComponent implements OnInit {
       '',
       ''
     );
+    this.idCliente = this.activatedRoute.snapshot.paramMap.get('idCliente');
 
     this.isValidForm = null;
 
@@ -147,6 +145,8 @@ export class ClienteFormComponent implements OnInit {
         next: (cliente: ClienteDTO) => {
           this.cliente = cliente;
 
+          this.loadMunicipios(this.cliente.idProvincia);
+
           this.email.setValue(this.cliente.email);
           //this.password.setValue(this.cliente.password);
           this.nombre.setValue(this.cliente.nombre);
@@ -176,8 +176,8 @@ export class ClienteFormComponent implements OnInit {
   private loadProvincias(): void {
     let errorResponse: any;
     this.provinciaService.getProvincias().subscribe({
-      next: (provincias: ProvinciaDTO[]) => {
-        this.provincias = provincias;
+      next: (listprovincias: ProvinciaDTO[]) => {
+        this.listprovincias = listprovincias;
       },
       error: (error: HttpErrorResponse) => {
         errorResponse = error.error;
@@ -189,8 +189,8 @@ export class ClienteFormComponent implements OnInit {
   private loadMunicipios(idProvincia: string): void {
     let errorResponse: any;
     this.municipioService.getMunicipios(idProvincia).subscribe({
-      next: (municipios: MunicipioDTO[]) => {
-        this.municipios = municipios;
+      next: (listmunicipios: MunicipioDTO[]) => {
+        this.listmunicipios = listmunicipios;
       },
       error: (error: HttpErrorResponse) => {
         errorResponse = error.error;
