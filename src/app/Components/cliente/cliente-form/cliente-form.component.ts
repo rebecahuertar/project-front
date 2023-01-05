@@ -125,6 +125,10 @@ export class ClienteFormComponent implements OnInit {
       idMunicipio: this.municipio,
       codigopostal: this.codigopostal,
     });
+
+    this.clienteForm.controls['idProvincia'].valueChanges.subscribe((value) => {
+      this.loadMunicipios(value);
+    });
   }
 
   ngOnInit(): void {

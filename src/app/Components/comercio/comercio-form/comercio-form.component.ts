@@ -180,6 +180,10 @@ export class ComercioFormComponent implements OnInit {
       web: this.web,
       telefono: this.telefono,
     });
+
+    this.comercioForm.controls['provincia'].valueChanges.subscribe((value) => {
+      this.loadMunicipios(value);
+    });
   }
 
   ngOnInit(): void {
