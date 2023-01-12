@@ -8,9 +8,8 @@ describe('BuscadorListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ BuscadorListComponent ]
-    })
-    .compileComponents();
+      declarations: [BuscadorListComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(BuscadorListComponent);
     component = fixture.componentInstance;

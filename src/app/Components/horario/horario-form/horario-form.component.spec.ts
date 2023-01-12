@@ -8,9 +8,8 @@ describe('HorarioFormComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ HorarioFormComponent ]
-    })
-    .compileComponents();
+      declarations: [HorarioFormComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(HorarioFormComponent);
     component = fixture.componentInstance;

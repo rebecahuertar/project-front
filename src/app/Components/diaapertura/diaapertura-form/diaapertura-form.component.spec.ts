@@ -8,9 +8,8 @@ describe('DiaaperturaFormComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DiaaperturaFormComponent ]
-    })
-    .compileComponents();
+      declarations: [DiaaperturaFormComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(DiaaperturaFormComponent);
     component = fixture.componentInstance;
